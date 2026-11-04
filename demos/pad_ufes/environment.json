@@ -1,0 +1,25 @@
+{
+  "python": "3.11.9",
+  "versions": {
+    "glyph-discovery": "0.1.0",
+    "torch": "2.6.0",
+    "transformers": "4.57.6",
+    "huggingface-hub": "0.34.4",
+    "numpy": "2.2.6",
+    "pandas": "3.0.3",
+    "scipy": "1.15.1",
+    "scikit-learn": "1.6.1",
+    "statsmodels": "0.14.6",
+    "matplotlib": "3.10.0",
+    "networkx": "3.5",
+    "umap-learn": "0.5.12",
+    "pillow": "11.1.0"
+  },
+  "device": "cpu",
+  "torch_threads": 4,
+  "wheel_sha256": {
+    "fit": "17a3a0cd1951f15802fbe3cc891772037f28721634e172776c624925f8fbc69e",
+    "comparison": "1f038aded64a418e297d05f8010ba7e6ba7278d34d997c23743f0165079c7840"
+  },
+  "note": "Fitting and comparison used isolated local wheel installations. The comparison wheel adds the pooled-cap option; scientific fitting code is identical."
+}

@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glyph-discovery"
+version = "0.1.0"
+description = "Domain-agnostic hypothesis generation using sparse autoencoders"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Robbie Holland", email = "robbie.holland@stanford.edu" },
+]
+keywords = [
+    "sparse autoencoders",
+    "mechanistic interpretability",
+    "hypothesis generation",
+    "phewas",
+    "medical imaging",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "pytorch-lightning>=2.0.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.3.0",
+    "scipy>=1.10.0",
+    "statsmodels>=0.14.0",
+    "matplotlib>=3.7.0",
+    "networkx>=3.0",
+    "umap-learn>=0.5.4",
+    "pillow>=9.5.0",
+    "pyarrow>=12.0.0",
+    "hydra-core>=1.3.0",
+    "omegaconf>=2.3.0",
+    "pyyaml>=6.0",
+    "tqdm>=4.65.0",
+]
+
+[project.scripts]
+glyph = "glyph.skill_cli:main"
+
+[project.optional-dependencies]
+hf = ["transformers>=4.56.0", "huggingface-hub>=0.23.0", "safetensors>=0.4.0"]
+browser-tests = ["pytest>=7.0.0", "playwright>=1.45.0"]
+confounders = ["xgboost>=2.0.0"]
+zoo = ["huggingface-hub>=0.23.0"]
+ct = ["torch>=2.6.0", "torchvision>=0.21.0", "huggingface-hub>=0.23.0", "merlin-vlm>=0.0.7", "monai>=1.3.0", "nibabel>=4.0"]
+text = ["huggingface-hub>=0.23.0", "transformers>=4.51.0"]
+labs = ["huggingface-hub>=0.23.0"]
+autointerp = [
+    "google-genai>=1.0.0",
+]
+tracking = ["wandb>=0.15.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/RobbieHolland/Glyph"
+Repository = "https://github.com/RobbieHolland/Glyph"
+
+[tool.setuptools.packages.find]
+include = ["glyph*"]
+
+[tool.setuptools.package-data]
+glyph = ["conf/**/*.yaml", "conf/*.yaml.template", "zoo/assets/*"]

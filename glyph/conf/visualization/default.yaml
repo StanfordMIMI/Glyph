@@ -1,0 +1,17 @@
+correlation_percentile: 0.975  # top X% correlations become edges
+figsize: [14, 14]
+dpi: 150
+layout_k: null  # null = auto (8 / sqrt(n_nodes))
+bonferroni_alpha: 0.05
+umap_n_neighbors: 20
+umap_min_dist: 0.1
+umap_spread: 1.0
+umap_repulsion_strength: 1.0
+auto_generate: false  # opt in, or call glyph.visualize() explicitly
+interactive: true
+view: simple  # clean explorer; full retains rankings, diagnostics and report panels
+static_jpg: false  # retain the legacy JPG renderer as an opt-in output
+wheel_label_limit: 20  # label each spoke up to this count; denser wheels use hover/focus details
+
+image_examples: 2  # Highest-activating local 2D images per concept; 0 disables embedding
+thumbnail_size: 256  # Maximum thumbnail edge in pixels; originals are unchanged

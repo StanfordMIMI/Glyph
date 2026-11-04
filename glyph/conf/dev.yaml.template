@@ -1,0 +1,49 @@
+# Developer Configuration Template for MechSci
+# Copy this file to dev.yaml and modify for experiments
+
+# SAE Configuration
+sae:
+  # TopK values to try (number of active features per sample)
+  top_ks:
+    - 5
+    - 10
+    - 20
+    - 40
+
+  # Matryoshka dictionary sizes (nested feature dictionaries)
+  matryoshka:
+    - 128
+    - 512
+    - 2048
+    - 8192
+
+  # Training hyperparameters
+  learning_rate: 0.0003
+  max_steps: 50000
+  sparsity_coefficient: 0.001
+  use_ghost_grads: true
+  aux_scale: 1.0
+  dead_feature_threshold: 1.0e-8
+
+# PheWAS Configuration
+phewas:
+  # Minimum number of feature activations required for hypothesis testing
+  min_activations: 25
+
+  # AutoInterp selection criteria
+  autointerp_selection_criteria: top_20
+
+# Device Configuration
+device: auto  # Options: auto, cuda, cpu
+
+# Optional: Path to precomputed embeddings (skips embedding extraction)
+path_to_embeddings: null
+
+# Optional: Random seed for reproducibility
+seed: 42
+
+# Optional: Logging
+logging:
+  use_wandb: false
+  wandb_project: mechsci
+  log_frequency: 100

@@ -1,0 +1,19 @@
+{
+  "pubmed_hit_counts_by_query": [
+    {
+      "provider": "pubmed",
+      "query": "31760271[uid]",
+      "status": "complete",
+      "total_hits": 1,
+      "retrieved": 1,
+      "truncated": false,
+      "retrieved_at": "2026-10-27T22:52:56.643587+00:00"
+    }
+  ],
+  "pubmed_unique_retrieved": 1,
+  "paperclip_only_unique": 0,
+  "combined_unique": 1,
+  "screening_status": "pending_agent_review",
+  "live_requests": 0,
+  "cache_hits": 2
+}

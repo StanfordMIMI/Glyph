@@ -1,0 +1,37 @@
+{
+  "dataset": "TCIA COVID-19-NY-SBU",
+  "source": "https://www.cancerimagingarchive.net/collection/covid-19-ny-sbu/",
+  "doi": "10.7937/TCIA.BBAG-2923",
+  "license": "CC BY 4.0",
+  "clinical_url": "https://www.cancerimagingarchive.net/wp-content/uploads/deidentified_overlap_tcia.csv.cleaned.csv_20210806.csv",
+  "clinical_sha256": "6248f0c37db20d6102d8781b6d86cfeccd5e275635b3ad75d23b42026460264a",
+  "idc_index_version": "25.0.5",
+  "idc_index_sha256": "559808236662799938cec1da99778164fd15bbf1f6ca8dea607f6ca791d7b54c",
+  "published_patients": 1384,
+  "available_xray_patients": 1365,
+  "eligible_patients": 948,
+  "deaths": 164,
+  "split_counts": {
+    "test": {
+      "n": 143,
+      "deaths": 25
+    },
+    "train": {
+      "n": 663,
+      "deaths": 115
+    },
+    "val": {
+      "n": 142,
+      "deaths": 24
+    }
+  },
+  "image_selection": "One AP/PA chest series per patient from the day before or day of the selected inpatient admission; earliest available date, then lexical series UID",
+  "target": "In-hospital death after the admission day among patients with stays spanning at least two calendar days; discharged controls",
+  "timing": "Calendar-day hospital-day-two landmark; exact death timestamps are unavailable. ICU/ventilation flags are not treated as future endpoints.",
+  "split_unit": "patient",
+  "model": "facebook/dinov3-vits16-pretrain-lvd1689m",
+  "encoder_revision": "114c1379950215c8b35dfcd4e90a5c251dde0d32",
+  "seed": 42,
+  "raw_dicom_bytes_transferred": 14301032348,
+  "raw_dicom_stored": false
+}

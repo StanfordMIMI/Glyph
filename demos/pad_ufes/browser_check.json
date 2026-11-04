@@ -1,0 +1,19 @@
+{
+  "nodes": 1600,
+  "edges": 6166,
+  "max_degree": 8,
+  "outcomes": [
+    "is_ack",
+    "is_bcc",
+    "is_mel",
+    "is_nev",
+    "is_scc",
+    "is_sek",
+    "skin_cancer"
+  ],
+  "area_ratio": 4,
+  "outcome_spokes": 7,
+  "expandable_report_panels": 2,
+  "javascript_errors": [],
+  "external_requests": []
+}

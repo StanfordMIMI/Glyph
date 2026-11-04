@@ -1,0 +1,14 @@
+# @package _global_.phewas
+# Default PheWAS configuration
+
+min_activations: 25  # Minimum number of feature activations required for hypothesis testing
+selection_criteria: top_20  # Criteria for selecting features for AutoInterp
+top_n_print: 10  # Number of top hypotheses to display in summary
+
+# FMR orthogonal; used only when hypothesis_search(adjust_confounders=True, ...) is called.
+confounder_adjustment:
+  max_depth: 2
+  n_estimators: 100
+  n_splits: 5
+  inner_splits: null
+  n_jobs: 1

@@ -1,0 +1,6 @@
+# @package _global_.logging
+# Weights & Biases logging configuration
+
+use_wandb: true
+wandb_project: glyph
+log_frequency: 100

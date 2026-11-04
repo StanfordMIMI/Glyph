@@ -1,0 +1,17 @@
+# Glyph Main Configuration
+# This file defines the default configuration structure and references to config groups
+
+defaults:
+  - data: default
+  - sae: default
+  - phewas: default
+  - autointerp: default
+  - metrics: default
+  - visualization: default
+  - logging: none
+  - _self_
+
+# Top-level settings
+seed: 42
+device: auto  # Options: auto, cuda, cpu
+path_to_embeddings: null

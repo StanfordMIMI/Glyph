@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Testing
+.pytest_cache/
+test_outputs/
+.coverage
+htmlcov/
+.tox/
+
+# Data and cache
+cache/
+outputs/
+*.pkl
+*.pt
+*.pth
+*.h5
+*.hdf5
+
+# Config files (keep templates only)
+glyph/conf/user.yaml
+glyph/conf/dev.yaml
+
+# Logs
+*.log
+lightning_logs/
+wandb/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation builds
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Test datasets
+tests/test_dataset/tests/
+
+# Generated public demo reruns (curated artifacts live under demos/)
+demo_outputs/
+
+# Local bookkeeping and older exploratory demo outputs
+/demos/*/local_run.json
+/demos/breast_cancer/
+/demos/unlabelled_images/
+/demos/synthetic_labs/

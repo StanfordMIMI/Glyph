@@ -1,0 +1,10 @@
+[
+  {
+    "split": "test",
+    "replicates": 2000,
+    "attempted": 2000,
+    "rejected_single_class": 0,
+    "method": "Paired patient-cluster bootstrap; fixed fitted predictions; conditional on both classes",
+    "seed": 1238
+  }
+]

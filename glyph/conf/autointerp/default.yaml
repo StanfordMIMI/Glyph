@@ -1,0 +1,54 @@
+# @package _global_.autointerp
+# AutoInterp configuration for LLM-based feature interpretation
+
+defaults:
+  - llm: gemini_api
+
+# Run only when credentials are configured; false explicitly disables calls.
+enabled: true
+
+# Selection parameters
+top_n_hypotheses: 5       # Number of top (highest OR, risk) hypotheses per outcome to interpret
+bottom_n_hypotheses: 0    # Number of bottom (lowest OR, protective) hypotheses per outcome to interpret
+top_pct_activating: 0.05  # Top percentage of activating samples to consider
+n_fit_samples: 40         # Number of train samples for interpretation
+n_test_samples: 40        # Number of test samples for validation
+
+# Text data column in metadata (maps modality to its text column)
+# e.g. {image_path: report} means use the 'report' column for the 'image_path' modality
+autointerp_text_map: {image_path: report}
+
+# Prompt templates - use {samples} and {interpretation} as placeholders
+full_reports_prompt: |
+  You are interpreting a sparse feature learned from the supplied observations.
+  Compare the strongly activating cohort with nonactivating reference samples.
+  Describe one concise, testable distinction supported by the examples. Avoid
+  causal claims, disease assumptions unsupported by the input, and novelty claims.
+  Give a short evidence summary, then end with exactly one interpretation line:
+  * This cohort is characterized by [the supported distinguishing pattern].
+
+  [REFERENCE OBSERVATIONS]
+  {reference_patients}
+
+  [STRONGLY ACTIVATING OBSERVATIONS]
+  {patient_data}
+
+discriminative_autointerp_score_prompt: |
+  Classify each observation according to whether the supplied interpretation
+  applies. The observations are randomly ordered, with equal numbers drawn from
+  the strongly activating group and the nonactivating reference group.
+  Use only the observation content and interpretation, not imagined diagnoses.
+
+  Observations:
+  {patient_data}
+
+  Interpretation:
+  {interpretation}
+
+  Return one prediction for every numbered observation, with no missing or
+  duplicated numbers. Use exactly this format after the marker:
+  * PREDICTIONS:
+  1. 1
+  2. 0
+  ...
+  A value of 1 means the interpretation applies; 0 means it does not.

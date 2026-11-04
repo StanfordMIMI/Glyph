@@ -1,0 +1,13 @@
+{
+  "source_run": "20261027T013253Z-4d28277a6f",
+  "focus_concepts": [
+    "image_path:64:1978",
+    "image_path:64:5058"
+  ],
+  "focus_outcome": "is_digit_4",
+  "concept_notes": {
+    "image_path:64:1978": "Compact, angular 4s with an upright central stroke among the strongest training examples. Visual description only; no subtype validation.",
+    "image_path:64:5058": "Broader, rounded/open-bowl 4s among the strongest training examples. Visual description only; no subtype validation."
+  },
+  "selection_note": "Two separated digit-4-associated concepts curated from training images, replacing the initial pair with nearby, higher-prevalence concepts. These are descriptive style illustrations, not validated subtype labels."
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "scope": "Targeted primary-source verification of the eight clinical inputs evaluated by Pacheco and Krohling for smartphone skin-lesion diagnosis",
+  "outcome": "Contemporaneous biopsy-confirmed skin cancer versus other clinically diagnosed skin lesions",
+  "queries": {"pubmed": ["31760271[uid]"]},
+  "max_records_per_query": 10,
+  "notes": "Targeted worked benchmark, not a systematic review. Refit the eight source-defined clinical fields on the new training cohort. No claim to reproduce the paper's fitted neural model or published performance."
+}

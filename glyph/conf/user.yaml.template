@@ -1,0 +1,35 @@
+# User Configuration Template for MechSci
+# Copy this file to user.yaml and modify for your project
+
+# Path to your data directory (should contain train/ and validation/ subdirectories)
+data_path: /path/to/your/data
+
+# Path to metadata CSV file
+# Expected columns: sample_id, split (train/val/test), input columns, outcome columns
+metadata: /path/to/metadata.csv
+
+# Input columns (features/modalities to use)
+input_cols:
+  - embedding  # e.g., precomputed embeddings
+  # - image_path
+  # - text_path
+
+# Outcome columns (target variables to predict)
+outcome_cols:
+  - outcome_1
+  # - outcome_2
+
+# Optional: Cache directory for intermediate results
+cache_dir: ./cache
+
+# Optional: Output directory for results
+output_dir: ./outputs
+
+# AutoInterp settings
+# Gemini API key for automated feature interpretation
+# gemini_api_key: YOUR_API_KEY_HERE
+
+# Map from input modality column to text column in metadata used for autointerp
+# e.g. for chest X-rays: image_path -> report column
+# autointerp_text_map:
+#   image_path: report

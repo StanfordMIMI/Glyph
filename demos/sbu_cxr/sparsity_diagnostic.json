@@ -1,0 +1,21 @@
+{
+  "k": 64,
+  "dictionary_size": 8192,
+  "max_steps": 4000,
+  "train": {
+    "mse": 0.04212876134202486,
+    "r2": 0.9578076002257476
+  },
+  "val": {
+    "mse": 0.31242810938389537,
+    "r2": 0.6823942071419791
+  },
+  "seconds": 494.25750613212585,
+  "note": "Diagnostic only; no held-out test inputs or labels evaluated; existing demo unchanged.",
+  "training_active_concepts": 3390,
+  "actual_steps": 1680,
+  "early_stopped": true,
+  "torch_version": "2.6.0+cu124",
+  "cpu_threads": 1,
+  "weights_sha256": "2528199a0b86db140c2af57818a05c15e2156828ebcfa0c85b40a42507491775"
+}

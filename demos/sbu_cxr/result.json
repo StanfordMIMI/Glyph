@@ -1,0 +1,134 @@
+{
+  "dictionary_size": 8192,
+  "training_active_concepts": 8192,
+  "selected_k": 768,
+  "selection": {
+    "dictionary_size": 8192,
+    "candidate_top_ks": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "r2_targets": [
+      0.85,
+      0.9,
+      0.95
+    ],
+    "encoder_initialization": "training_calibrated_transpose",
+    "extra_sparsity_per_target": 1.0,
+    "lookahead_step": 128,
+    "baseline_top_k": 512,
+    "target_top_k_limits": [
+      512,
+      1024,
+      1536
+    ],
+    "selected_top_k": 768,
+    "selected_validation_r2": 0.9045076900969415,
+    "reached_minimum": true,
+    "selected_target": 0.9,
+    "reason": "highest_qualifying_target_with_smallest_tested_k",
+    "tried": [
+      {
+        "top_k": 8,
+        "validation_r2": 0.467422783375657,
+        "validation_mse": 0.5238950190220958,
+        "encoder_initialization_scale": 0.8236247206835945
+      },
+      {
+        "top_k": 16,
+        "validation_r2": 0.537642083194972,
+        "validation_mse": 0.4548204505534514,
+        "encoder_initialization_scale": 0.713412015370222
+      },
+      {
+        "top_k": 32,
+        "validation_r2": 0.6048405217309432,
+        "validation_mse": 0.38871749658520116,
+        "encoder_initialization_scale": 0.5817914915553558
+      },
+      {
+        "top_k": 64,
+        "validation_r2": 0.6819068386676975,
+        "validation_mse": 0.3129075326640026,
+        "encoder_initialization_scale": 0.444416785880858
+      },
+      {
+        "top_k": 128,
+        "validation_r2": 0.7587038778864652,
+        "validation_mse": 0.23736245663282882,
+        "encoder_initialization_scale": 0.3210394810195777
+      },
+      {
+        "top_k": 256,
+        "validation_r2": 0.8240592879073795,
+        "validation_mse": 0.1730724857003044,
+        "encoder_initialization_scale": 0.22459514925309895
+      },
+      {
+        "top_k": 512,
+        "validation_r2": 0.8758505661677369,
+        "validation_mse": 0.12212552089890318,
+        "encoder_initialization_scale": 0.15739358883805504
+      },
+      {
+        "top_k": 640,
+        "validation_r2": 0.8912006829545296,
+        "validation_mse": 0.10702564528465869,
+        "encoder_initialization_scale": 0.1412243988108731
+      },
+      {
+        "top_k": 768,
+        "validation_r2": 0.9045076900969415,
+        "validation_mse": 0.09393557206637748,
+        "encoder_initialization_scale": 0.12975567933416216
+      },
+      {
+        "top_k": 896,
+        "validation_r2": 0.9139666578074902,
+        "validation_mse": 0.0846308066465253,
+        "encoder_initialization_scale": 0.12124222643023391
+      },
+      {
+        "top_k": 1024,
+        "validation_r2": 0.9212765029592231,
+        "validation_mse": 0.07744012828989379,
+        "encoder_initialization_scale": 0.11462356147388031
+      },
+      {
+        "top_k": 1152,
+        "validation_r2": 0.9273244281325479,
+        "validation_mse": 0.07149079779880353,
+        "encoder_initialization_scale": 0.10941543233480666
+      },
+      {
+        "top_k": 1280,
+        "validation_r2": 0.932806770643948,
+        "validation_mse": 0.06609782970959309,
+        "encoder_initialization_scale": 0.1052194095250314
+      },
+      {
+        "top_k": 1408,
+        "validation_r2": 0.9376878389883078,
+        "validation_mse": 0.06129633367616396,
+        "encoder_initialization_scale": 0.10178996224123292
+      },
+      {
+        "top_k": 1536,
+        "validation_r2": 0.9413044122631369,
+        "validation_mse": 0.05773871861966438,
+        "encoder_initialization_scale": 0.09896349141228535
+      }
+    ]
+  },
+  "reload_identical": true,
+  "cpu_threads": 8
+}

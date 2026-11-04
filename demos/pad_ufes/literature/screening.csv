@@ -1,0 +1,2 @@
+record_id,title,title_decision,abstract_decision,feasible,reason,citation_count,citation_provider,citation_date,verified_source_url
+pmid:31760271,The impact of patient clinical information on automated skin cancer detection.,include,include,yes,"Pre-reviewed full text section 2.1 specifies age, body site and six symptoms. All eight can be reconstructed directly. New ridge coefficients, not the historical fitted neural classifier.",,,,https://arxiv.org/html/1909.12912

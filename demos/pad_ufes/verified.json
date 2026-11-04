@@ -1,0 +1,62 @@
+{
+  "reloaded_exactly": true,
+  "selected_k": 80,
+  "selection": {
+    "dictionary_size": 8192,
+    "candidate_top_ks": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "r2_targets": [
+      0.85,
+      0.9,
+      0.95
+    ],
+    "encoder_initialization": "training_calibrated_transpose",
+    "extra_sparsity_per_target": 1.0,
+    "lookahead_step": 1,
+    "baseline_top_k": null,
+    "target_top_k_limits": null,
+    "selected_top_k": 80,
+    "selected_validation_r2": 0.7569809260448317,
+    "reached_minimum": false,
+    "selected_target": null,
+    "reason": "best_reconstruction_below_minimum",
+    "tried": [
+      {
+        "top_k": 5,
+        "validation_r2": 0.43482058449199945,
+        "validation_mse": 0.5702780513928278,
+        "encoder_initialization_scale": 0.9068206230525043
+      },
+      {
+        "top_k": 10,
+        "validation_r2": 0.5309637193205669,
+        "validation_mse": 0.4732675834239052,
+        "encoder_initialization_scale": 0.8296148523211433
+      },
+      {
+        "top_k": 20,
+        "validation_r2": 0.6084826902272987,
+        "validation_mse": 0.3950492929808015,
+        "encoder_initialization_scale": 0.7216226067394101
+      },
+      {
+        "top_k": 40,
+        "validation_r2": 0.6878834881098982,
+        "validation_mse": 0.31493219909332315,
+        "encoder_initialization_scale": 0.5927709973387213
+      },
+      {
+        "top_k": 80,
+        "validation_r2": 0.7569809260448317,
+        "validation_mse": 0.24521141454147857,
+        "encoder_initialization_scale": 0.4562562271681421
+      }
+    ]
+  },
+  "total_seconds": 1266.366662979126
+}

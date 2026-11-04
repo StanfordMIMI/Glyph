@@ -1,0 +1,13 @@
+# @package _global_.metrics
+# Default metrics configuration
+
+# Metrics to compute for evaluation
+compute_auc: true
+compute_accuracy: true
+compute_precision: true
+compute_recall: true
+compute_f1: true
+
+# Classification settings
+threshold: 0.5  # Classification threshold for converting probabilities to labels
+average: binary  # Averaging strategy for multiclass (binary, micro, macro, weighted)

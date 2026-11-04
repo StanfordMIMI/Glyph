@@ -1,0 +1,17 @@
+# @package _global_.sae
+# Default SAE configuration
+
+top_ks: [5, 10, 20, 40, 80]  # Increasing candidates; a one-value list fixes k
+selection:
+  r2_targets: [0.85, 0.90, 0.95]
+  extra_sparsity_per_target: 1.0  # Each upgrade adds 100% of the first qualifying k
+  lookahead_step: 1  # Increase to test fewer intermediate k values
+matryoshka: [128, 512, 2048, 8192]  # Matryoshka dictionary sizes
+calibrate_encoder_init: true  # Training-only gain calibration before optimization
+learning_rate: 0.0003  # Learning rate for Adam optimizer
+max_steps: 1500  # Maximum training steps
+sparsity_coefficient: 0.001  # Weight for L1 sparsity penalty
+use_ghost_grads: true  # Whether to use ghost gradient recovery
+aux_scale: 1.0  # Scale factor for auxiliary ghost gradient loss
+dead_feature_threshold: 1.0e-8  # Threshold for considering a feature "dead"
+kaux: 256  # Number of auxiliary features for ghost gradients

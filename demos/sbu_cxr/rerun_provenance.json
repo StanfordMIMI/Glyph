@@ -1,0 +1,10 @@
+{
+  "previous_run": "20261027T010328Z-7a13f0cc6f",
+  "current_run": "20261027T013258Z-97a8ed6bbd",
+  "embedding_sha256": "47ddd6b5cc21a80507f3cc01c8e8a3d4cc11155938e855dc40156d33e5f6b781",
+  "identical_embeddings_and_sample_order": true,
+  "input_vector_probes_reused": true,
+  "sae_probes_refitted": true,
+  "validation_only_selection": true,
+  "cpu_threads": 8
+}

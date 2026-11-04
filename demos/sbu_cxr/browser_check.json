@@ -1,0 +1,9 @@
+{
+  "nodes": 8192,
+  "edges": 8652,
+  "max_degree": 8,
+  "area_ratio": 4,
+  "outcome_spokes": 1,
+  "javascript_errors": [],
+  "external_requests": []
+}

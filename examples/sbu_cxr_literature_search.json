@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "scope": "Targeted primary-source verification of age and sex as COVID-19 mortality risk factors for a public chest-X-ray prognosis demonstration",
+  "outcome": "Later in-hospital death among COVID-positive inpatients alive after their admission day",
+  "queries": {
+    "pubmed": [
+      "32640463[uid]"
+    ]
+  },
+  "max_records_per_query": 10,
+  "notes": "Targeted lookup of Williamson et al. Nature 2020, not a systematic literature review. Use available age bands and recorded sex, not a reconstruction of their fitted Cox model or a clinical score."
+}

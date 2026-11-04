@@ -1,0 +1,34 @@
+# @package _global_.data
+# Default data configuration
+
+# Data paths
+data_path: ???  # Path to data directory (optional, if files are in one directory)
+metadata: ???  # Path to metadata CSV file (required)
+
+# Column names in metadata CSV
+input_cols: ???  # List of input column names (features/modalities)
+outcome_cols: []  # Recommended for association discovery; optional for concept exploration
+
+# Embedding models
+# Maps metadata column names to model names
+# Example: {'image_path': 'resnet18'}
+embedding_map: null
+embedding_model_kwargs: null  # Optional per-modality kwargs: {col_name: {key: val}}
+
+# Output paths
+cache_dir: ./cache  # Directory for caching intermediate results
+output_dir: ./outputs  # Directory for saving final outputs
+
+# DataLoader settings
+batch_size: 32  # Batch size for loading labels
+extraction_batch_size: 1  # Conservative default for CT and large text encoders
+num_workers: 4  # Number of workers for data loading
+shuffle_train: true  # Whether to shuffle training data
+
+# Train/val/test split ratios (must sum to 1.0)
+split_ratios: [0.7, 0.15, 0.15]  # [train, val, test]
+
+# AutoInterp text column mapping
+# Maps modality column names to text columns for LLM-based interpretation
+# e.g. {image_path: report} uses the 'report' column for image modality autointerp
+autointerp_text_map: null

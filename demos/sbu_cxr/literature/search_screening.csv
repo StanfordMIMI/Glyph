@@ -1,0 +1,2 @@
+record_id,title,title_decision,abstract_decision,feasible,reason,citation_count,citation_provider,citation_date,verified_source_url
+pmid:32640463,Factors associated with COVID-19-related death using OpenSAFELY.,include,include,yes,Fixed pre-reviewed demo source: age and sex supported; use locally available age bands as proxies. Not the published fitted model or a systematic review.,,,,https://pmc.ncbi.nlm.nih.gov/articles/PMC7611074/

@@ -1,0 +1,80 @@
+{
+  "dictionary_size": 8192,
+  "training_active_concepts": 1629,
+  "selected_k": 64,
+  "selection": {
+    "dictionary_size": 8192,
+    "candidate_top_ks": [
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "r2_targets": [
+      0.85,
+      0.9,
+      0.95
+    ],
+    "encoder_initialization": "training_calibrated_transpose",
+    "extra_sparsity_per_target": 1.0,
+    "lookahead_step": 128,
+    "baseline_top_k": 64,
+    "target_top_k_limits": [
+      64,
+      128,
+      192
+    ],
+    "selected_top_k": 64,
+    "selected_validation_r2": 0.8677328144859944,
+    "reached_minimum": true,
+    "selected_target": 0.85,
+    "reason": "highest_qualifying_target_with_smallest_tested_k",
+    "tried": [
+      {
+        "top_k": 8,
+        "validation_r2": 0.7485254891068831,
+        "validation_mse": 0.254699685480173,
+        "encoder_initialization_scale": 0.8271244834202762
+      },
+      {
+        "top_k": 16,
+        "validation_r2": 0.7969528060521287,
+        "validation_mse": 0.20565128550199335,
+        "encoder_initialization_scale": 0.7139052129695317
+      },
+      {
+        "top_k": 32,
+        "validation_r2": 0.8336788670666395,
+        "validation_mse": 0.16845421071258332,
+        "encoder_initialization_scale": 0.5801655027520314
+      },
+      {
+        "top_k": 64,
+        "validation_r2": 0.8677328144859944,
+        "validation_mse": 0.13396351952378738,
+        "encoder_initialization_scale": 0.44243545623515507
+      },
+      {
+        "top_k": 128,
+        "validation_r2": 0.8976081481315734,
+        "validation_mse": 0.10370503306279433,
+        "encoder_initialization_scale": 0.31996045277217217
+      },
+      {
+        "top_k": 192,
+        "validation_r2": 0.9152089241101212,
+        "validation_mse": 0.08587852615351771,
+        "encoder_initialization_scale": 0.2605906690466964
+      }
+    ]
+  },
+  "reload_identical": true,
+  "cpu_threads": 8
+}

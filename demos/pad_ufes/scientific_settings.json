@@ -1,0 +1,66 @@
+{
+  "seed": 42,
+  "sae": {
+    "top_ks": [
+      5,
+      10,
+      20,
+      40,
+      80
+    ],
+    "selection": {
+      "r2_targets": [
+        0.85,
+        0.9,
+        0.95
+      ],
+      "extra_sparsity_per_target": 1.0,
+      "lookahead_step": 1
+    },
+    "matryoshka": [
+      128,
+      512,
+      2048,
+      8192
+    ],
+    "calibrate_encoder_init": true,
+    "learning_rate": 0.0003,
+    "max_steps": 1500,
+    "sparsity_coefficient": 0.001,
+    "use_ghost_grads": true,
+    "aux_scale": 1.0,
+    "dead_feature_threshold": 1e-08,
+    "kaux": 256
+  },
+  "phewas": {
+    "min_activations": 25,
+    "selection_criteria": "top_20",
+    "top_n_print": 10,
+    "confounder_adjustment": {
+      "max_depth": 2,
+      "n_estimators": 100,
+      "n_splits": 5,
+      "inner_splits": null,
+      "n_jobs": 1
+    }
+  },
+  "visualization": {
+    "correlation_percentile": 0.975,
+    "figsize": [
+      14,
+      14
+    ],
+    "dpi": 150,
+    "layout_k": null,
+    "bonferroni_alpha": 0.05,
+    "umap_n_neighbors": 20,
+    "umap_min_dist": 0.1,
+    "umap_spread": 1.0,
+    "umap_repulsion_strength": 1.0,
+    "auto_generate": false,
+    "interactive": true,
+    "view": "simple",
+    "static_jpg": false,
+    "wheel_label_limit": 20
+  }
+}

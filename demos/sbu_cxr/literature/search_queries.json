@@ -1,0 +1,11 @@
+[
+  {
+    "provider": "pubmed",
+    "query": "32640463[uid]",
+    "status": "complete",
+    "total_hits": 1,
+    "retrieved": 1,
+    "truncated": false,
+    "retrieved_at": "2026-10-27T01:47:46.195741+00:00"
+  }
+]

@@ -1,0 +1,6 @@
+# @package _global_.logging
+# No logging configuration (local only)
+
+use_wandb: false
+wandb_project: glyph
+log_frequency: 100

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(tree:*)",
+      "Bash(python /tmp/test_mechsci_config_utils.py:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python -c:*)",
+      "Bash(python tests/feature1_test.py:*)",
+      "Bash(PYTHONPATH=/dataNAS/people/slmoro/MechSciDev:$PYTHONPATH python:*)",
+      "Bash(python tests/test5_outcome_types.py:*)",
+      "Bash(python:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
