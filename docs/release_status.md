@@ -1,6 +1,6 @@
 # Release status
 
-## 0.2.0 release preparation — 4 November 2026
+## 0.2.0 — 4 November 2026
 
 The current package has passed a fresh installed-wheel check against the API
 listings in paper version 34. Forty-nine checks passed, including real DINOv3
@@ -15,8 +15,14 @@ cohort was used. Authenticated interpretation/Paperclip calls were not rerun.
 The repository has been transferred to `StanfordMIMI/Glyph`. It remains private
 because the transferring account now has write access without admin access; an
 organization owner must make it public or grant admin access before visibility
-and Pages can be configured. Version 0.2.0 prepares the updated `glyph-discovery`
-PyPI release. Python imports remain `from glyph import Glyph`.
+and Pages can be configured. The reviewed demo site is already pushed to the
+`gh-pages` branch; an administrator or maintainer can enable Pages with that
+branch and `/(root)` as its publishing source.
+
+[`glyph-discovery` 0.2.0](https://pypi.org/project/glyph-discovery/0.2.0/) is
+published on PyPI. Both uploaded distributions match the locally checked hashes,
+and a fresh public wheel download/install was checked. The matching GitHub
+release is tagged `v0.2.0`. Python imports remain `from glyph import Glyph`.
 The release wheel also passed 36 focused skill, reader-API and confounder tests;
 both distributions passed `twine check` and credential/content scans. Hugging
 Face SAE and encoder locations are unchanged. The source has a clean
