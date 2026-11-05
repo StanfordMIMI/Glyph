@@ -1,11 +1,11 @@
 """
-Glyph: Mechanistic Science - Domain-Agnostic Hypothesis Generation
+Glyph: discovery in foundation-model embeddings
 
 A toolkit for discovering interpretable features and generating scientific hypotheses
 from multimodal data using Sparse Autoencoders and statistical analysis.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = ["Glyph"]
 

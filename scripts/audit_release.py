@@ -32,7 +32,7 @@ def audit(paper=None):
                 license=data.get('cardData',{}).get('license'),gated=data.get('gated'),private=data.get('private'))
         records.append(row)
     github=[]
-    for repo in ['RobbieHolland/Glyph','RobbieHolland/Glyph-research']:
+    for repo in ['StanfordMIMI/Glyph','RobbieHolland/Glyph-research']:
         response=get('https://api.github.com/repos/'+repo)
         github.append(dict(repo=repo,anonymous_http_status=response['status'],
             publicly_accessible=response['status']==200,
@@ -43,7 +43,7 @@ def audit(paper=None):
         links=subprocess.run(['pdfinfo','-url',str(path)],capture_output=True,text=True,check=True).stdout
         combined=text+'\n'+links
         paper_findings={'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'filename':path.name,
-            'mentions_github_package':bool(re.search(r'github\.com/RobbieHolland/Glyph',text)),
+            'mentions_github_package':bool(re.search(r'github\.com/(?:StanfordMIMI|RobbieHolland)/Glyph(?![-\w])',text)),
             'mentions_hf_labs_encoder':LABS_ENCODER_REPO in combined,
             'mentions_hf_sae_repo':'RobbieHolland/HypothesisExtractor' in combined,
             'mentions_activation_download':bool(re.search(r'(activation|sparse).{0,100}(huggingface|zenodo|download)',text,re.I)),
@@ -53,7 +53,7 @@ def audit(paper=None):
             {'item':'Historical underlying Merlin and Qwen encoder revisions','status':'unresolved','reason':'Published SAE registry does not identify historical upstream FM commits. Do not substitute current upstream HEAD.'},
             {'item':'Pretrained SAE decoders','status':'not_in_current_published_bundles','reason':'Encoder-only SAE assets support concept inference, not published-dictionary reconstruction R².'},
             {'item':'Public per-study activation release','status':'pending_local_preparation','reason':'Needs explicit public sample-ID mapping, release scope and provenance. No subject-level data are exported by this audit.'},
-            {'item':'Publish package, source and data; clean Git history','status':'not_performed','reason':'Publishing and Git-history changes explicitly withheld by the user.'}],
+            {'item':'Source/package publication and activation data','status':'check_current_release_state','reason':'Package and repository publication are tracked separately from the pending research activation release; this read-only audit does not publish either.'}],
         registry=[dict(name=entry.name,encoder=entry.encoder,dimensions=entry.input_dim,concepts=entry.n_concepts,k=entry.top_k) for entry in ZOO.values()])
 
 

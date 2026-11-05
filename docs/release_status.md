@@ -1,4 +1,37 @@
-# Local release readiness
+# Release status
+
+## 0.2.0 release preparation — 4 November 2026
+
+The current package has passed a fresh installed-wheel check against the API
+listings in paper version 34. Forty-nine checks passed, including real DINOv3
+and Qwen3-Embedding-0.6B extraction, multimodal fitting and association testing,
+published CT/lab dictionary measurement, exact saved-run reloads, current
+research FMR numerical parity, and agent-skill installation. All four generated
+HTML maps rendered and supported node selection without JavaScript errors.
+The learning smoke test used a reduced SAE width/training budget; it was not a
+default-budget reconstruction or clinical validation study. No private research
+cohort was used. Authenticated interpretation/Paperclip calls were not rerun.
+
+The repository has been transferred to `StanfordMIMI/Glyph`. It remains private
+because the transferring account now has write access without admin access; an
+organization owner must make it public or grant admin access before visibility
+and Pages can be configured. Version 0.2.0 prepares the updated `glyph-discovery`
+PyPI release. Python imports remain `from glyph import Glyph`.
+The release wheel also passed 36 focused skill, reader-API and confounder tests;
+both distributions passed `twine check` and credential/content scans. Hugging
+Face SAE and encoder locations are unchanged. The source has a clean
+initial history; deletion and recreation of the old GitHub repository was
+completed, and an old development commit returned 404 in the new repository.
+
+Remaining research-release inputs are the SAE license/model-card metadata,
+historical encoder revisions, original decoders if pretrained reconstruction
+checks are needed, and the public study-ID mapping and scope for activation
+data. Repository hosting, PyPI publication and research-data publication are
+separate steps.
+
+The sections below are dated implementation records. Statements about deferred
+publication describe the state on their recorded date, not the current release.
+
 
 ## Private review preparation — 26 October 2026
 

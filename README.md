@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Glyph.svg" alt="Glyph" width="100%">
+  <img src="https://raw.githubusercontent.com/StanfordMIMI/Glyph/main/Glyph.svg" alt="Glyph" width="100%">
 </p>
 
 # Glyph
@@ -16,23 +16,23 @@ and illustrated reports.
 
 | Demo | Notebook | PDF report | Interactive HTML |
 | --- | --- | --- | --- |
-| [Skin-lesion diagnosis](demos/pad_ufes/README.md) · 1,373 patients, clinical baseline | [Open notebook](demos/pad_ufes/demo.ipynb) | [View report](demos/pad_ufes/report.pdf) | [Get HTML](demos/pad_ufes/explorer.html) |
-| [Chest X-ray mortality](demos/sbu_cxr/README.md) · 948 patients, clinical baseline | [Open notebook](demos/sbu_cxr/demo.ipynb) | [View report](demos/sbu_cxr/report.pdf) | [Get HTML](demos/sbu_cxr/explorer.html) |
-| [Handwritten digits](demos/dinov3_digits/README.md) · 1,000 images, ten digit labels | [Open notebook](demos/dinov3_digits/demo.ipynb) | [View report](demos/dinov3_digits/report.pdf) | [Get HTML](demos/dinov3_digits/explorer.html) |
+| [Skin-lesion diagnosis](https://github.com/StanfordMIMI/Glyph/blob/main/demos/pad_ufes/README.md) · 1,373 patients, clinical baseline | [Open notebook](https://github.com/StanfordMIMI/Glyph/blob/main/demos/pad_ufes/demo.ipynb) | [View report](https://github.com/StanfordMIMI/Glyph/blob/main/demos/pad_ufes/report.pdf) | [Get HTML](https://github.com/StanfordMIMI/Glyph/blob/main/demos/pad_ufes/explorer.html) |
+| [Chest X-ray mortality](https://github.com/StanfordMIMI/Glyph/blob/main/demos/sbu_cxr/README.md) · 948 patients, clinical baseline | [Open notebook](https://github.com/StanfordMIMI/Glyph/blob/main/demos/sbu_cxr/demo.ipynb) | [View report](https://github.com/StanfordMIMI/Glyph/blob/main/demos/sbu_cxr/report.pdf) | [Get HTML](https://github.com/StanfordMIMI/Glyph/blob/main/demos/sbu_cxr/explorer.html) |
+| [Handwritten digits](https://github.com/StanfordMIMI/Glyph/blob/main/demos/dinov3_digits/README.md) · 1,000 images, ten digit labels | [Open notebook](https://github.com/StanfordMIMI/Glyph/blob/main/demos/dinov3_digits/demo.ipynb) | [View report](https://github.com/StanfordMIMI/Glyph/blob/main/demos/dinov3_digits/report.pdf) | [Get HTML](https://github.com/StanfordMIMI/Glyph/blob/main/demos/dinov3_digits/explorer.html) |
 
 GitHub displays the notebooks and PDFs. Download an HTML file and open it in your
 browser to use the interactive explorer.
 
 ## Install
 
-From a checkout of this repository:
-
 ```bash
-pip install -e ".[hf,zoo]"
+pip install "glyph-discovery[hf,zoo]"
 ```
 
+The source repository is [StanfordMIMI/Glyph](https://github.com/StanfordMIMI/Glyph).
+
 For the paper's pretrained dictionaries, install the matching encoder extra:
-`pip install -e ".[zoo,ct]"`, `".[zoo,text]"`, or `".[zoo,labs]"`.
+`pip install "glyph-discovery[zoo,ct]"`, `"glyph-discovery[zoo,text]"`, or `"glyph-discovery[zoo,labs]"`.
 Model weights download when needed. DINOv3 requires approved access to its
 [HF checkpoint](https://huggingface.co/facebook/dinov3-vits16-pretrain-lvd1689m).
 
@@ -64,7 +64,7 @@ optional. Labels are not required for learning and exploring concepts.
 
 For a small text encoder, use `qwen3-embedding-0.6b`. Other HF models and your
 own models can specify their preprocessing and embedding output; see the
-[encoder guide](docs/hf_embeddings.md).
+[encoder guide](https://github.com/StanfordMIMI/Glyph/blob/main/docs/hf_embeddings.md).
 
 ## Extract the paper's concepts on your data
 
@@ -89,7 +89,7 @@ l127 = concepts['L127']
 
 `ct_metadata.csv` contains `sample_id` and `image_path` (CT NIfTI paths).
 `labs_metadata.csv` contains `sample_id` and `labs_path` (prepared laboratory JSON
-paths); see [lab preparation](docs/extraction.md#labs-release-bundle) for raw LOINC data.
+paths); see [lab preparation](https://github.com/StanfordMIMI/Glyph/blob/main/docs/extraction.md#labs-release-bundle) for raw LOINC data.
 
 `from_pretrained` loads the published SAE. `measure` computes the matching
 foundation-model embeddings on your data, then applies that SAE. No labels,
@@ -103,7 +103,7 @@ are needed for association testing and significance highlighting.
 
 Bundles are `ct-merlin`, `findings-qwen3`, and `labs-loinc`. Each preserves the
 paper's normalization and concept indices and uses the original matching encoder.
-See [extraction and saved runs](docs/extraction.md) for supplied embeddings,
+See [extraction and saved runs](https://github.com/StanfordMIMI/Glyph/blob/main/docs/extraction.md) for supplied embeddings,
 reloading, and input options.
 
 ## Run through a coding agent
@@ -138,5 +138,5 @@ Interpretation through Gemini/Vertex and supplementary literature search through
 Paperclip are optional and require configured access. Numerical analyses and
 visualization do not require an LLM key.
 
-[Documentation](docs/README.md) · [Agent harnesses](docs/literature.md) ·
-[Remote HTML viewing](docs/html_explorer.md)
+[Documentation](https://github.com/StanfordMIMI/Glyph/blob/main/docs/README.md) · [Agent harnesses](https://github.com/StanfordMIMI/Glyph/blob/main/docs/literature.md) ·
+[Remote HTML viewing](https://github.com/StanfordMIMI/Glyph/blob/main/docs/html_explorer.md)

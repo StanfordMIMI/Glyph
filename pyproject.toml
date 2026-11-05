@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "glyph-discovery"
-version = "0.1.0"
+version = "0.2.0"
 description = "Domain-agnostic hypothesis generation using sparse autoencoders"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -74,8 +74,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/RobbieHolland/Glyph"
-Repository = "https://github.com/RobbieHolland/Glyph"
+Homepage = "https://github.com/StanfordMIMI/Glyph"
+Repository = "https://github.com/StanfordMIMI/Glyph"
 
 [tool.setuptools.packages.find]
 include = ["glyph*"]
