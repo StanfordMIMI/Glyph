@@ -4,6 +4,11 @@
 
 # Glyph
 
+[![PyPI version](https://img.shields.io/pypi/v/glyph-discovery?logo=pypi&logoColor=white)](https://pypi.org/project/glyph-discovery/)
+[![PyPI downloads per month](https://img.shields.io/pypi/dm/glyph-discovery?label=PyPI%20downloads&logo=pypi&logoColor=white)](https://pypistats.org/packages/glyph-discovery)
+[![Hugging Face model downloads per month](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fhuggingface.co%2Fapi%2Fmodels%2FRobbieHolland%2FGlyph-research&query=%24.downloads&label=HF+models&suffix=%2Fmonth&color=yellow&logo=huggingface&logoColor=black)](https://huggingface.co/RobbieHolland/Glyph-research)
+[![Hugging Face dataset downloads — private](https://img.shields.io/badge/HF%20data%20downloads-private-lightgrey?logo=huggingface&logoColor=black)](https://huggingface.co/datasets/RobbieHolland/Glyph-research)
+
 Glyph automates discovery in foundation-model embeddings. It learns sparse
 concepts, searches for associations with outcomes, and summarizes its findings
 in interactive visualizations and concise reports. Use it on your own data,
