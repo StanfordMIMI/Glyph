@@ -1,0 +1,88 @@
+{
+  "dataset": "PAD-UFES-20 v1",
+  "source": "https://data.mendeley.com/datasets/zr7vgbcyr2/1",
+  "doi": "10.17632/zr7vgbcyr2.1",
+  "license": "CC BY 4.0",
+  "source_images": 2298,
+  "source_patients": 1373,
+  "source_lesions": 1641,
+  "selection": "Lexicographically first image ID per patient, chosen without using diagnosis; one observation per patient",
+  "endpoint": "Cancer in the imaged lesion (BCC, SCC, MEL) versus ACK, NEV, SEK; six secondary one-vs-rest diagnoses. Diagnostic, not prognostic.",
+  "label_verification": "All cancer diagnoses biopsy-proven; some non-cancer diagnoses use dermatologist consensus. Biopsy status excluded from predictors.",
+  "split_unit": "patient",
+  "seed": 42,
+  "n": 1373,
+  "model": "facebook/dinov3-vits16-pretrain-lvd1689m",
+  "encoder_revision": "114c1379950215c8b35dfcd4e90a5c251dde0d32",
+  "split_counts": {
+    "test": {
+      "n": 206,
+      "skin_cancer": 89,
+      "is_ack": 69,
+      "is_bcc": 69,
+      "is_mel": 5,
+      "is_nev": 25,
+      "is_scc": 15,
+      "is_sek": 23
+    },
+    "train": {
+      "n": 961,
+      "skin_cancer": 417,
+      "is_ack": 318,
+      "is_bcc": 325,
+      "is_mel": 22,
+      "is_nev": 120,
+      "is_scc": 70,
+      "is_sek": 106
+    },
+    "val": {
+      "n": 206,
+      "skin_cancer": 89,
+      "is_ack": 68,
+      "is_bcc": 70,
+      "is_mel": 4,
+      "is_nev": 26,
+      "is_scc": 15,
+      "is_sek": 23
+    }
+  },
+  "diagnosis_counts": {
+    "ACK": {
+      "test": 69,
+      "train": 318,
+      "val": 68
+    },
+    "BCC": {
+      "test": 69,
+      "train": 325,
+      "val": 70
+    },
+    "MEL": {
+      "test": 5,
+      "train": 22,
+      "val": 4
+    },
+    "NEV": {
+      "test": 25,
+      "train": 120,
+      "val": 26
+    },
+    "SCC": {
+      "test": 15,
+      "train": 70,
+      "val": 15
+    },
+    "SEK": {
+      "test": 23,
+      "train": 106,
+      "val": 23
+    }
+  },
+  "source_checksums": {
+    "metadata.csv": "14d145235cedb022548257acb0d84dcd949e2c916f65d2baa7c38ed5339e9527",
+    "imgs_part_1.zip": "0ab44f60938bf57445e12f518a8878954cc734e6b0aec6d01194e2d26b4b2dca",
+    "imgs_part_2.zip": "e2d9a3cbd58e823f5ae33163c48643e7d1b54ae3f9e145f01f8e9f16a363a60b",
+    "imgs_part_3.zip": "ecc4ef10143a43e1d01cb736773148607a78b530417eb76f2c38ad24bf5d0d2c"
+  },
+  "pixel_preprocessing": "Original PNGs passed directly to the official DINOv3 image processor; no task-specific crop or lesion segmentation."
+}
