@@ -84,5 +84,14 @@
     "imgs_part_2.zip": "e2d9a3cbd58e823f5ae33163c48643e7d1b54ae3f9e145f01f8e9f16a363a60b",
     "imgs_part_3.zip": "ecc4ef10143a43e1d01cb736773148607a78b530417eb76f2c38ad24bf5d0d2c"
   },
-  "pixel_preprocessing": "Original PNGs passed directly to the official DINOv3 image processor; no task-specific crop or lesion segmentation."
+  "pixel_preprocessing": "Original PNGs passed directly to the official DINOv3 image processor; no task-specific crop or lesion segmentation.",
+  "outcome_names": {
+    "skin_cancer": "Skin cancer (any type)",
+    "is_ack": "Actinic keratosis",
+    "is_bcc": "Basal cell carcinoma",
+    "is_mel": "Melanoma",
+    "is_nev": "Melanocytic nevus (mole)",
+    "is_scc": "Squamous cell carcinoma",
+    "is_sek": "Seborrheic keratosis"
+  }
 }

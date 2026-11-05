@@ -653,8 +653,8 @@
     "dinov3_digits/report.html": "d74fb392d04ef1549ff4dd500747d40eaa3defa2058d3431d98f2b5ea22346b9",
     "dinov3_digits/report.pdf": "f62183cab27be0173afa5c39eb3e117b8cf39121d3d2b7be240d7c0cd5755dd1",
     "index.html": "d72ddf211e76cb5ec77458ce77f2ef9f8a4977b792119066b4f82c0235985f8f",
-    "pad_ufes/demo.ipynb": "a0dbf84db032d075db398cddd6ba31b0ef0cfd6eb37e5931a3654bdd91baacc2",
-    "pad_ufes/explorer.html": "f91c9da12c0cf79f7e327204b4ec68dde1a18949b2e9f4cce4c559c08e3c61ba",
+    "pad_ufes/demo.ipynb": "e3ce95c52cfaad940af8f8cc5ba5d2dbf6c4b4aef9c74fedf355e9b1f8722fc9",
+    "pad_ufes/explorer.html": "6bf249f12ef5c1be00bfee8e33db9fe2bc86dcd19c414163679016f66639915a",
     "pad_ufes/images/00a46963fde9eaf3ff88.jpg": "8c4622f07986fea160ba32612362a495e98ded3f9d7ceb7d32f82e6c82801cc5",
     "pad_ufes/images/0103bec71c6f325c6898.jpg": "6f4a0aeb1cd3f41defea12c3679c9636cee15de4861442a7b1d0718c7b76fba8",
     "pad_ufes/images/011321fb990cfa155a1f.jpg": "923f0fc766200e92f761042c17081bfdc711153c51dd8fa10733ce2c49cdc670",
@@ -1411,9 +1411,9 @@
     "pad_ufes/images/ffbd60ab4d8c14214c57.jpg": "537826baf197d1c8ffdabc250215c13a5a614622f39f23a3793970c6f674dbdb",
     "pad_ufes/images/ffda3fe037792b15cd15.jpg": "eded3648b16f1dc4a51d4ee788b9dd2f21590d86e4b9a75796766f6429b0bad1",
     "pad_ufes/inputs.png": "7c787caf161256d23d5ff862f957fafae044b8ad5310dea7b2d4109832436aa2",
-    "pad_ufes/provenance.json": "1c97a8112f2121b8c70961e13335b3f49e3f509bde4a4fc0a9cee40f10ec89d2",
-    "pad_ufes/report.html": "f118d0668dbeffbdf0a5475fc90fccf880ca831cef46ac3742fbe2b9d6696e6b",
-    "pad_ufes/report.pdf": "0bed84c499efbd1e09a6cd47aa4730aac0705487ac0b25043f75be714b442b15",
+    "pad_ufes/provenance.json": "a0017a39fdfa47c269a31bf24d2265f474c9afcf3472367a16110f368829393c",
+    "pad_ufes/report.html": "4625c6cc2e23e369bb14f3624cddacf3ed2111108d392f73193541addabb2be5",
+    "pad_ufes/report.pdf": "81ec3ffba4d618b7241c956f5be424127528ced339a52de7f05f289a38bad433",
     "sbu_cxr/demo.ipynb": "3542db38cdc41c03d05a928d598c7dbce187213cb22b1508f3ecb2e064eff95b",
     "sbu_cxr/explorer.html": "ea1da455c04aa8a60347a2f11e7c3b7346e59dc1853006367474433931de4211",
     "sbu_cxr/images/003de42ce4aceda04db6.jpg": "ed8b7879c6d319d1bd23a04bfcf3c40e1e6247a705cbf7c003a4ba8a55c24dd9",
@@ -2098,8 +2098,8 @@
     },
     {
       "demo": "pad_ufes",
-      "standalone_bytes": 11100900,
-      "pages_html_bytes": 2068896,
+      "standalone_bytes": 11101372,
+      "pages_html_bytes": 2069368,
       "thumbnail_bytes": 6777770
     }
   ]
