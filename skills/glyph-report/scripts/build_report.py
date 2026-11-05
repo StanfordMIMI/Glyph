@@ -618,6 +618,10 @@ def build(concepts,associations,output,title,metadata,split='train',comparison='
     if not 0<alpha<1:raise ValueError('alpha must be between zero and one')
     concepts,associations=validate(concepts,associations)
     metadata=dict(metadata)
+    if metadata.get("outcome_names"):
+        names=metadata["outcome_names"]
+        associations["outcome_display"]=associations.outcome.map(names).fillna(
+            associations.get("outcome_display",associations.outcome))
     lookup={identifier:i for i,identifier in enumerate(concepts.concept_id)}
     supplied=metadata.get('correlation_edges',[])
     if any(e['source'] not in lookup or e['target'] not in lookup for e in supplied):raise ValueError('Correlation edge references an unknown concept')

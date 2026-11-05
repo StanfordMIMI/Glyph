@@ -152,3 +152,11 @@ ssh -fN -o ExitOnForwardFailure=yes -L 8766:127.0.0.1:8766 rholland@torino && op
 Remote/headless `glyph serve` skips launching a browser on the server and prints
 the viewer URL instead. Local browser opening and viewer hosting are independently
 optional; analysis can be run without either.
+
+### Readable outcome names
+
+Set `visualization.outcome_names` to map metadata keys to display labels, for example
+`{is_nev: "Melanocytic nevus (mole)"}`. Names appear in the picker, search, legend,
+wheel and association details; filtering and CSV exports retain the original keys.
+Report metadata accepts the same `outcome_names` mapping and optional
+`outcome_labels` for readable binary class names in image captions.

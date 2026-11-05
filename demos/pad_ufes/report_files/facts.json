@@ -38,13 +38,13 @@
       "bonferroni_significant": true,
       "bonferroni_significant_modality": true,
       "concept_id": "image_path:80:43",
+      "outcome_display": "Melanocytic nevus (mole)",
       "zoom_number": 1,
       "name": "image_path concept 43",
       "interpretation": "",
       "annotation": "",
       "interpretation_accuracy": null,
       "interpretation_accuracy_context": "Held-out interpretation evaluation",
-      "outcome_display": "is_nev",
       "x": 0.551937,
       "y": 0.24553,
       "comparison": {
@@ -81,13 +81,13 @@
       "bonferroni_significant": true,
       "bonferroni_significant_modality": true,
       "concept_id": "image_path:80:121",
+      "outcome_display": "Skin cancer (any type)",
       "zoom_number": 2,
       "name": "image_path concept 121",
       "interpretation": "",
       "annotation": "",
       "interpretation_accuracy": null,
       "interpretation_accuracy_context": "Held-out interpretation evaluation",
-      "outcome_display": "skin_cancer",
       "x": 0.512446,
       "y": 0.711404,
       "comparison": {
@@ -31036,16 +31036,16 @@
         },
         "reconstruction": {
           "train": {
-            "mse": 0.03482576746387422,
-            "r2": 0.9651379557215575
+            "mse": 0.03482576746028622,
+            "r2": 0.9651379557251493
           },
           "val": {
-            "mse": 0.24521141454147857,
-            "r2": 0.7569809260448317
+            "mse": 0.24521141456152357,
+            "r2": 0.756980926024966
           },
           "test": {
-            "mse": 0.23801433870571878,
-            "r2": 0.7592411006585762
+            "mse": 0.23801433872125005,
+            "r2": 0.7592411006428659
           }
         },
         "embedding_probe": {
@@ -31135,10 +31135,43 @@
         5642
       ]
     },
+    "outcome_names": {
+      "skin_cancer": "Skin cancer (any type)",
+      "is_ack": "Actinic keratosis",
+      "is_bcc": "Basal cell carcinoma",
+      "is_mel": "Melanoma",
+      "is_nev": "Melanocytic nevus (mole)",
+      "is_scc": "Squamous cell carcinoma",
+      "is_sek": "Seborrheic keratosis"
+    },
     "outcome_labels": {
       "skin_cancer": {
-        "0": "ACK / NEV / SEK",
-        "1": "BCC / SCC / MEL"
+        "0": "No skin cancer",
+        "1": "Skin cancer"
+      },
+      "is_ack": {
+        "0": "Other diagnosis",
+        "1": "Actinic keratosis"
+      },
+      "is_bcc": {
+        "0": "Other diagnosis",
+        "1": "Basal cell carcinoma"
+      },
+      "is_mel": {
+        "0": "Other diagnosis",
+        "1": "Melanoma"
+      },
+      "is_nev": {
+        "0": "Other diagnosis",
+        "1": "Melanocytic nevus (mole)"
+      },
+      "is_scc": {
+        "0": "Other diagnosis",
+        "1": "Squamous cell carcinoma"
+      },
+      "is_sek": {
+        "0": "Other diagnosis",
+        "1": "Seborrheic keratosis"
       }
     },
     "interpretation_status": "Automated interpretation was not run.",
@@ -31164,15 +31197,15 @@
       "sae_features.pkl": "4c9ccc6b7e4663c97ca58a662664dcd3a7997b401c5884977c43c568cecd4ec1",
       "sae_linear_probe_results.pkl": "c8b8ae07478ae3b10e672b028b70b73c9800e4bd8dfea37884d9a6dfd2e23205",
       "sae_selection.json": "9ddcf598014dc5914b8718731e9252a539d9d73d79c12fb04123bd2a9ef7da30",
-      "report_metadata.json": "299d9a79bad61bc853b010fa9d2c80c7ec7adaa182117053fb9b7fe0af9bc723"
+      "report_metadata.json": "d3f61dc9815facf5a5290c54ca711ac9b91aa74d25a9e1cea3da90efb76928f1"
     },
-    "report_script_sha256": "ae496110b86dd294b4b03b276cc56d860945c25aedac58ed64d1a3c97808e206"
+    "report_script_sha256": "33fabccb6a45d1568ae328876bb19e4b2b5b7d624d8b98ac591c6796df39fce7"
   },
   "image_examples": [
     {
       "concept_id": "image_path:80:43",
       "name": "image_path concept 43",
-      "outcome": "is_nev",
+      "outcome": "Melanocytic nevus (mole)",
       "outcome_key": "is_nev",
       "statistics": {
         "Index": 4714,
@@ -31199,13 +31232,13 @@
         "bonferroni_significant": true,
         "bonferroni_significant_modality": true,
         "concept_id": "image_path:80:43",
+        "outcome_display": "Melanocytic nevus (mole)",
         "zoom_number": 1,
         "name": "image_path concept 43",
         "interpretation": "",
         "annotation": "",
         "interpretation_accuracy": null,
         "interpretation_accuracy_context": "Held-out interpretation evaluation",
-        "outcome_display": "is_nev",
         "x": 0.551937,
         "y": 0.24553,
         "comparison": {
@@ -31415,7 +31448,7 @@
     {
       "concept_id": "image_path:80:121",
       "name": "image_path concept 121",
-      "outcome": "skin_cancer",
+      "outcome": "Skin cancer (any type)",
       "outcome_key": "skin_cancer",
       "statistics": {
         "Index": 282,
@@ -31442,13 +31475,13 @@
         "bonferroni_significant": true,
         "bonferroni_significant_modality": true,
         "concept_id": "image_path:80:121",
+        "outcome_display": "Skin cancer (any type)",
         "zoom_number": 2,
         "name": "image_path concept 121",
         "interpretation": "",
         "annotation": "",
         "interpretation_accuracy": null,
         "interpretation_accuracy_context": "Held-out interpretation evaluation",
-        "outcome_display": "skin_cancer",
         "x": 0.512446,
         "y": 0.711404,
         "comparison": {

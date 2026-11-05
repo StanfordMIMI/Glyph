@@ -28,6 +28,25 @@ FILES = [
 ]
 DIAGNOSES = ['ACK', 'BCC', 'MEL', 'NEV', 'SCC', 'SEK']
 OUTCOMES = ['skin_cancer'] + [f'is_{d.lower()}' for d in DIAGNOSES]
+# Display names never replace the source outcome columns.
+OUTCOME_NAMES = {
+    'skin_cancer': 'Skin cancer (any type)',
+    'is_ack': 'Actinic keratosis',
+    'is_bcc': 'Basal cell carcinoma',
+    'is_mel': 'Melanoma',
+    'is_nev': 'Melanocytic nevus (mole)',
+    'is_scc': 'Squamous cell carcinoma',
+    'is_sek': 'Seborrheic keratosis',
+}
+OUTCOME_LABELS = {
+    'skin_cancer': {'0': 'No skin cancer', '1': 'Skin cancer'},
+    'is_ack': {'0': 'Other diagnosis', '1': 'Actinic keratosis'},
+    'is_bcc': {'0': 'Other diagnosis', '1': 'Basal cell carcinoma'},
+    'is_mel': {'0': 'Other diagnosis', '1': 'Melanoma'},
+    'is_nev': {'0': 'Other diagnosis', '1': 'Melanocytic nevus (mole)'},
+    'is_scc': {'0': 'Other diagnosis', '1': 'Squamous cell carcinoma'},
+    'is_sek': {'0': 'Other diagnosis', '1': 'Seborrheic keratosis'},
+}
 REGIONS = ['ABDOMEN', 'ARM', 'BACK', 'CHEST', 'EAR', 'FACE', 'FOOT', 'FOREARM', 'HAND', 'LIP', 'NECK', 'NOSE', 'SCALP', 'SHIN', 'THIGH']
 SYMPTOMS = ['itch', 'bleed', 'hurt', 'grew', 'changed', 'elevation']
 CLINICAL_SOURCE = 'https://arxiv.org/html/1909.12912'
@@ -129,6 +148,7 @@ def prepare(output):
         split_unit='patient', seed=42, n=len(selected), model=MODEL, encoder_revision=REVISION,
         split_counts={split: dict(n=len(part), **{outcome: int(part[outcome].sum()) for outcome in OUTCOMES}) for split, part in selected.groupby('split')},
         diagnosis_counts=pd.crosstab(selected.split, selected.diagnostic).to_dict(),
+        outcome_names=OUTCOME_NAMES,
         source_checksums={name: expected for name, _, expected in FILES},
         pixel_preprocessing='Original PNGs passed directly to the official DINOv3 image processor; no task-specific crop or lesion segmentation.')
     (output / 'provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
@@ -145,7 +165,9 @@ def make_glyph(metadata, output):
         f'data.embedding_model_kwargs={{image_path: {{input_type: image, pooling: cls, revision: "{REVISION}"}}}}',
         f'data.output_dir={Path(output).resolve()}',
         # Runtime-only conveniences; do not change any scientific selection rule.
-        'data.num_workers=0', 'data.extraction_batch_size=16', 'autointerp.enabled=false'])
+        'data.num_workers=0', 'data.extraction_batch_size=16', 'autointerp.enabled=false',
+        'visualization.outcome_names={'+','.join(
+            key+': '+json.dumps(value) for key,value in OUTCOME_NAMES.items())+'}'])
 
 
 def baseline_manifest():
@@ -224,7 +246,7 @@ def report(run, output, literature):
     metadata = output.parent / 'report_metadata.json'
     metadata.parent.mkdir(parents=True, exist_ok=True)
     profile = dict(scope='PAD-UFES-20: 1,373 patients, one original photograph each, seven diagnostic outcomes',
-        outcome_labels={'skin_cancer': {'0': 'ACK / NEV / SEK', '1': 'BCC / SCC / MEL'}},
+        outcome_names=OUTCOME_NAMES, outcome_labels=OUTCOME_LABELS,
         interpretation_status='Automated interpretation was not run.',
         notes='Patient-held-out diagnostic benchmark, not prognosis or external validation. '
               'The clinical baseline refits eight published inputs; it is not the historical fitted classifier. '

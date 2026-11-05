@@ -81,3 +81,19 @@ Original downloads total about **3.6 GB** and are verified against the publisher
 These are **diagnostic labels, not future outcomes**. The source has 2,298 images, 1,641 lesions and 1,373 patients; selecting the lexicographically first image ID without using diagnosis prevents repeated-image inflation. Every cancer label is biopsy-confirmed, while some non-cancer labels use clinical consensus. Six secondary one-vs-rest diagnoses are tested alongside the composite cancer endpoint, with the complete saved multiple-testing family. Melanoma has only 22 training, four validation and five test cases, so its results are underpowered. There is no external validation or confounder adjustment. Image examples and associations are not validated semantic interpretations or proof of new biology.
 
 Images and metadata: Pacheco et al., **PAD-UFES-20 v1**, [doi:10.17632/zr7vgbcyr2.1](https://data.mendeley.com/datasets/zr7vgbcyr2/1), [**CC BY 4.0**](https://creativecommons.org/licenses/by/4.0/). [Dataset paper](https://doi.org/10.1016/j.dib.2020.106221). Report images are resized for display; input photographs were passed directly to the official DINOv3 processor without task-specific segmentation or cropping.
+
+## Diagnosis labels
+
+The explorer and report use full names; exported tables retain these stable keys.
+
+| Data key | Display name |
+| --- | --- |
+| `skin_cancer` | Skin cancer (any type) |
+| `is_ack` | Actinic keratosis |
+| `is_bcc` | Basal cell carcinoma |
+| `is_mel` | Melanoma |
+| `is_nev` | Melanocytic nevus (mole) |
+| `is_scc` | Squamous cell carcinoma |
+| `is_sek` | Seborrheic keratosis |
+
+Each individual diagnosis is compared with all other diagnoses. The combined skin-cancer label includes basal cell carcinoma, squamous cell carcinoma and melanoma.

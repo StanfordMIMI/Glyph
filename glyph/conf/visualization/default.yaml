@@ -15,3 +15,5 @@ wheel_label_limit: 20  # label each spoke up to this count; denser wheels use ho
 
 image_examples: 2  # Highest-activating local 2D images per concept; 0 disables embedding
 thumbnail_size: 256  # Maximum thumbnail edge in pixels; originals are unchanged
+
+outcome_names: null  # Optional display names; saved outcome identifiers are unchanged

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Add optional readable outcome display names to explorers and reports while
+  preserving original filter/export identifiers. Refresh the skin-lesion demo
+  with full diagnosis names in its explorer, PDF, notebook and label guide.
+
 ## 0.2.0
 
 - Move the source repository to StanfordMIMI/Glyph; keep the `glyph-discovery`

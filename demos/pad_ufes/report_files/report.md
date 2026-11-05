@@ -11,12 +11,12 @@ Test probe AUC: input vectors 0.893; full dictionary 0.884.
 
 ![Entire concept space](concept_space.png)
 
-**image_path concept 43 → is_nev.** train: OR 3.19 (95% CI 2.64–3.84); corrected p=2.9e-30.
+**image_path concept 43 → Melanocytic nevus (mole).** train: OR 3.19 (95% CI 2.64–3.84); corrected p=2.9e-30.
 test: OR 3.95 (95% CI 2.50–6.25); corrected p=2.3e-05.
 
 ![Zoom, statistics and activating images](concept_1.png)
 
-**image_path concept 121 → skin_cancer.** train: OR 2.81 (95% CI 2.34–3.36); corrected p=1.4e-25.
+**image_path concept 121 → Skin cancer (any type).** train: OR 2.81 (95% CI 2.34–3.36); corrected p=1.4e-25.
 test: OR 2.48 (95% CI 1.71–3.59); corrected p=0.011.
 
 ![Zoom, statistics and activating images](concept_2.png)

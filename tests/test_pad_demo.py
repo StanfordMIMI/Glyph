@@ -24,3 +24,13 @@ def test_unknown_symptoms_remain_missing_and_labels_are_excluded():
     markers=[m['column'] for m in baseline_manifest()['markers']]
     assert set(markers)==set(result)-{'sample_id'} and len(markers)==22
     assert not set(markers)&{'diagnostic','biopsed','skin_cancer','patient_id'}
+
+
+def test_readable_names_compose_without_changing_outcome_keys(tmp_path, monkeypatch):
+    import examples.pad_ufes as demo
+    from glyph.config import load_config
+    monkeypatch.setattr(demo, 'Glyph', lambda name, config_overrides: load_config(name, config_overrides))
+    cfg = demo.make_glyph(tmp_path / 'metadata.csv', tmp_path / 'runs')
+    assert list(cfg.data.outcome_cols) == demo.OUTCOMES
+    assert set(cfg.visualization.outcome_names) == set(demo.OUTCOMES)
+    assert cfg.visualization.outcome_names.is_nev == 'Melanocytic nevus (mole)'

@@ -1065,6 +1065,7 @@ class Glyph:
                         wheel_label_limit=viz_cfg.get('wheel_label_limit', 20),
                         concept_prefix=concept_prefix,
                         image_examples=gallery,
+                        outcome_names=viz_cfg.get("outcome_names", {}),
                     ))
 
                 if viz_cfg.get('static_jpg', False) and self.phewas_results is not None:
