@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/StanfordMIMI/Glyph/main/Glyph.svg" alt="Glyph" width="100%">
+  <img src="Glyph.svg" alt="Glyph" width="100%">
 </p>
 
 # Glyph
