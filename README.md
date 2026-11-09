@@ -14,6 +14,8 @@ concepts, searches for associations with outcomes, and summarizes its findings
 in interactive visualizations and concise reports. Use it on your own data,
 or apply the pretrained concept dictionaries released with the paper.
 
+[Read the paper](https://arxiv.org/abs/2611.08922) · [Research website](https://stanfordmimi.github.io/Glyph-research/)
+
 ## Demos
 
 See Glyph run on public images, with executed notebooks, interactive concept maps
