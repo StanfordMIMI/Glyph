@@ -1,0 +1,58 @@
+WEBVTT
+
+00:00.450 --> 00:03.157
+Glyph aims to bring AI-accelerated science to
+
+00:03.157 --> 00:04.167
+clinical research.
+
+00:04.620 --> 00:07.540
+Foundation models may capture new insights into disease
+
+00:07.540 --> 00:11.700
+mechanisms from multimodal data, but these signals remain
+
+00:11.700 --> 00:13.280
+hidden in dense embeddings.
+
+00:13.820 --> 00:16.460
+Glyph exposes them as interpretable concepts.
+
+00:17.400 --> 00:19.983
+Distinct neighbourhoods in the concept space reveal patterns
+
+00:19.983 --> 00:21.254
+of health and disease.
+
+00:21.880 --> 00:23.293
+This creates a playground for discovery.
+
+00:24.480 --> 00:27.105
+We can query specific diseases, such as heart
+
+00:27.105 --> 00:29.522
+failure, revealing unexpected associations.
+
+00:30.850 --> 00:33.704
+Glyph concepts can be combined with existing clinical
+
+00:33.704 --> 00:35.871
+research to measure their added benefit.
+
+00:38.180 --> 00:40.618
+Choose any disease progression to see whether your
+
+00:40.618 --> 00:43.305
+data contains useful risk markers for discovery.
+
+00:43.850 --> 00:44.799
+Install Glyph,
+
+00:45.421 --> 00:47.192
+or ask Codex or Claude to run it
+
+00:47.192 --> 00:49.483
+on your data, and share your own concept
+
+00:49.483 --> 00:51.358
+spaces and AI-driven discoveries.

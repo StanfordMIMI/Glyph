@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Glyph.svg" alt="Glyph" width="100%">
+  <img src="https://raw.githubusercontent.com/StanfordMIMI/Glyph/main/Glyph.svg" alt="Glyph" width="100%">
 </p>
 
 # Glyph
@@ -15,6 +15,10 @@ in interactive visualizations and concise reports. Use it on your own data,
 or apply the pretrained concept dictionaries released with the paper.
 
 [Read the paper](https://arxiv.org/abs/2611.08922) · [Research website](https://stanfordmimi.github.io/Glyph-research/)
+
+[![Watch the Glyph video overview](https://stanfordmimi.github.io/Glyph/video/poster.jpg)](https://stanfordmimi.github.io/Glyph/video/)
+
+[Watch the video · 54 seconds](https://stanfordmimi.github.io/Glyph/video/)
 
 ## Demos
 
