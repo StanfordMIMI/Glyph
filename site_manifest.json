@@ -652,7 +652,7 @@
     "dinov3_digits/provenance.json": "e32732883e9d2fa04e5fed15a696690d9f4c8681d647dbf7320e8bd242fa9251",
     "dinov3_digits/report.html": "d74fb392d04ef1549ff4dd500747d40eaa3defa2058d3431d98f2b5ea22346b9",
     "dinov3_digits/report.pdf": "f62183cab27be0173afa5c39eb3e117b8cf39121d3d2b7be240d7c0cd5755dd1",
-    "index.html": "250d8ad9be09c2ef639b94aa84a96b76cef1d956923a6083847bbb91cb259346",
+    "index.html": "b20c2aa589dbccc71d63ef8847f33f9d126c0b3b37f2f24312d110d9186bfe1c",
     "pad_ufes/demo.ipynb": "e3ce95c52cfaad940af8f8cc5ba5d2dbf6c4b4aef9c74fedf355e9b1f8722fc9",
     "pad_ufes/explorer.html": "6bf249f12ef5c1be00bfee8e33db9fe2bc86dcd19c414163679016f66639915a",
     "pad_ufes/images/00a46963fde9eaf3ff88.jpg": "8c4622f07986fea160ba32612362a495e98ded3f9d7ceb7d32f82e6c82801cc5",
@@ -2085,7 +2085,8 @@
     "video/captions.vtt": "6becdb11d289999d80f408c4b9db4e2260514f964cf33be6661b61b9360b3664",
     "video/glyph-overview.mp4": "766f519dca77c013c245fbdc0b068609df3f890ba25560830a906a4b71707d6a",
     "video/index.html": "cd35f02b49ca55adeed247b2dbef6964290488541ef6d51e29d6642dda3b07c7",
-    "video/poster.jpg": "8b02acb4360b9d04c8daf64d9cde6ad2ab11c9d95326a34b4412b3a3e53703a4"
+    "video/poster.jpg": "8b02acb4360b9d04c8daf64d9cde6ad2ab11c9d95326a34b4412b3a3e53703a4",
+    "video/glyph-overview.gif": "380e7e0b979a3a4ddb3ec25d7325d4ac5559a4b7bf9eb7e0d4a35a54d0d2ef50"
   },
   "sizes": [
     {
