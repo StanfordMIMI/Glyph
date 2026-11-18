@@ -16,9 +16,13 @@ or apply the pretrained concept dictionaries released with the paper.
 
 [Read the paper](https://arxiv.org/abs/2611.08922) · [Research website](https://stanfordmimi.github.io/Glyph-research/)
 
-https://github.com/user-attachments/assets/7fc295d6-1a67-4a15-9963-01f5df7fe70d
-
-Turn on sound for narration.
+<p align="center">
+  <a href="https://stanfordmimi.github.io/Glyph/video/">
+    <img src="https://raw.githubusercontent.com/StanfordMIMI/Glyph/main/docs/video/glyph-overview.gif" alt="Glyph overview, full-length with captions" width="800">
+  </a>
+  <br>
+  <a href="https://stanfordmimi.github.io/Glyph/video/">Watch with narration</a>
+</p>
 
 ## Demos
 
