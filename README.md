@@ -18,6 +18,8 @@ or apply the pretrained concept dictionaries released with the paper.
 
 https://github.com/user-attachments/assets/7fc295d6-1a67-4a15-9963-01f5df7fe70d
 
+Turn on sound for narration.
+
 ## Demos
 
 See Glyph run on public images, with executed notebooks, interactive concept maps
