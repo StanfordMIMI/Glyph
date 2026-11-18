@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2
+
+- Fix the PyPI header image using a PNG of the original SVG, hosted in the
+  public Glyph repository at the versioned release tag.
+
 ## 0.2.1
 
 - Adopt the research explorer's cleaner map/details layout, stronger nodes,

@@ -12,10 +12,9 @@ class BuildWithSkills(build_py):
                  dirs_exist_ok=True, ignore=ignore_patterns('__pycache__', '*.pyc'))
 
 
-# Keep GitHub's authenticated relative image link in the source README, but
-# give PyPI an anonymous, public image URL in the built package description.
+# Keep the SVG in GitHub’s README; use a versioned public PNG for PyPI.
 PYPI_IMAGE_URL = (
-    "https://huggingface.co/RobbieHolland/HypothesisExtractor/resolve/main/assets/Glyph.png"
+    "https://raw.githubusercontent.com/StanfordMIMI/Glyph/v0.2.2/Glyph.png"
 )
 readme = (Path(__file__).parent / 'README.md').read_text(encoding='utf-8')
 pypi_readme = readme.replace('src="Glyph.svg"', f'src="{PYPI_IMAGE_URL}"', 1).replace(
