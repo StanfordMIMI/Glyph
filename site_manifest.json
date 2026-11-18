@@ -2,7 +2,7 @@
   "files": {
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "dinov3_digits/demo.ipynb": "3481c1edb9bf47b6c66b2f5bc1b830d42ea9fda4864c6b9c05033b909184fa40",
-    "dinov3_digits/explorer.html": "227f0a61c5dc84f1fc1fd9287da0e8b13846e6425d0cf4bba415135d867a40ff",
+    "dinov3_digits/explorer.html": "7c22fbac9ceec4549977715708db23e3887de98609cd764c3ae067d8ab776351",
     "dinov3_digits/images/002aeff064125225d8fa.png": "290cf8c7b984d0beed868fecb1a256d8ff0e7d45081e1d97c24b02dfea0e130a",
     "dinov3_digits/images/002bef09fd7a1d982cd0.png": "7fbf3f44d26412512e16cd036acf48113af84313eb1ceda2fb7de40f2266095a",
     "dinov3_digits/images/00420251104b02bc4d8f.png": "4782eba8dc1979bf0dbc6661df0d7862720f543f8ac1a061ea5f416af26f0d93",
@@ -654,7 +654,7 @@
     "dinov3_digits/report.pdf": "f62183cab27be0173afa5c39eb3e117b8cf39121d3d2b7be240d7c0cd5755dd1",
     "index.html": "b20c2aa589dbccc71d63ef8847f33f9d126c0b3b37f2f24312d110d9186bfe1c",
     "pad_ufes/demo.ipynb": "e3ce95c52cfaad940af8f8cc5ba5d2dbf6c4b4aef9c74fedf355e9b1f8722fc9",
-    "pad_ufes/explorer.html": "6bf249f12ef5c1be00bfee8e33db9fe2bc86dcd19c414163679016f66639915a",
+    "pad_ufes/explorer.html": "448677bd89c96c6ae1a373def4696bc87bbfedb0c82415ae01d07e190a178e37",
     "pad_ufes/images/00a46963fde9eaf3ff88.jpg": "8c4622f07986fea160ba32612362a495e98ded3f9d7ceb7d32f82e6c82801cc5",
     "pad_ufes/images/0103bec71c6f325c6898.jpg": "6f4a0aeb1cd3f41defea12c3679c9636cee15de4861442a7b1d0718c7b76fba8",
     "pad_ufes/images/011321fb990cfa155a1f.jpg": "923f0fc766200e92f761042c17081bfdc711153c51dd8fa10733ce2c49cdc670",
@@ -1415,7 +1415,7 @@
     "pad_ufes/report.html": "4625c6cc2e23e369bb14f3624cddacf3ed2111108d392f73193541addabb2be5",
     "pad_ufes/report.pdf": "81ec3ffba4d618b7241c956f5be424127528ced339a52de7f05f289a38bad433",
     "sbu_cxr/demo.ipynb": "3542db38cdc41c03d05a928d598c7dbce187213cb22b1508f3ecb2e064eff95b",
-    "sbu_cxr/explorer.html": "ea1da455c04aa8a60347a2f11e7c3b7346e59dc1853006367474433931de4211",
+    "sbu_cxr/explorer.html": "8a3f07bea87390fdf776fd91817b175d50647a7c5e6ada81e05f2f330b0a6354",
     "sbu_cxr/images/003de42ce4aceda04db6.jpg": "ed8b7879c6d319d1bd23a04bfcf3c40e1e6247a705cbf7c003a4ba8a55c24dd9",
     "sbu_cxr/images/00504d115c01fbce48e4.jpg": "94098864d4f3ecc4bb0db98a661911614e608747885f4d7f3f250f08f9e1a768",
     "sbu_cxr/images/00b703d5512ee34b4b03.jpg": "d85c5a7588d9bf655488b3b354e66087be5d2bf7ccc452920556cbab778ae369",
@@ -2083,28 +2083,28 @@
     "sbu_cxr/report.html": "9d0ac66d48d14e78fa857ddfbf7fd00c07a3feefa12a9894913beaa7d127965c",
     "sbu_cxr/report.pdf": "309ca76ce4eb345a67ade746c7b13cf88728f642cfe68c72bad4df5600642a0f",
     "video/captions.vtt": "6becdb11d289999d80f408c4b9db4e2260514f964cf33be6661b61b9360b3664",
+    "video/glyph-overview.gif": "380e7e0b979a3a4ddb3ec25d7325d4ac5559a4b7bf9eb7e0d4a35a54d0d2ef50",
     "video/glyph-overview.mp4": "766f519dca77c013c245fbdc0b068609df3f890ba25560830a906a4b71707d6a",
     "video/index.html": "cd35f02b49ca55adeed247b2dbef6964290488541ef6d51e29d6642dda3b07c7",
-    "video/poster.jpg": "8b02acb4360b9d04c8daf64d9cde6ad2ab11c9d95326a34b4412b3a3e53703a4",
-    "video/glyph-overview.gif": "380e7e0b979a3a4ddb3ec25d7325d4ac5559a4b7bf9eb7e0d4a35a54d0d2ef50"
+    "video/poster.jpg": "8b02acb4360b9d04c8daf64d9cde6ad2ab11c9d95326a34b4412b3a3e53703a4"
   },
   "sizes": [
     {
       "demo": "dinov3_digits",
-      "standalone_bytes": 4262020,
-      "pages_html_bytes": 4120741,
+      "standalone_bytes": 4273543,
+      "pages_html_bytes": 4132264,
       "thumbnail_bytes": 109679
     },
     {
       "demo": "sbu_cxr",
-      "standalone_bytes": 13394561,
-      "pages_html_bytes": 4431565,
+      "standalone_bytes": 13406084,
+      "pages_html_bytes": 4443088,
       "thumbnail_bytes": 6725544
     },
     {
       "demo": "pad_ufes",
-      "standalone_bytes": 11101372,
-      "pages_html_bytes": 2069368,
+      "standalone_bytes": 11112664,
+      "pages_html_bytes": 2080660,
       "thumbnail_bytes": 6777770
     }
   ]
