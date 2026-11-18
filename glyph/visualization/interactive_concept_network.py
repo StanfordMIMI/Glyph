@@ -151,6 +151,7 @@ def build_interactive_concept_atlas(
     wheel_label_limit=20,
     image_examples=None,
     outcome_names=None,
+    regions=None,
 ):
     """Write a self-contained atlas from an already-computed shared layout.
 
@@ -290,6 +291,8 @@ def build_interactive_concept_atlas(
         "outcome_groups": packed_groups,
         "outcome_colors": {**outcome_palette(outcomes),**{str(key): str(value) for key, value in (outcome_colors or {}).items()}},
     }
+    from glyph.visualization.regions import pack_regions
+    payload["regions"] = pack_regions(regions, nodes)
     payload.update(image_payload(image_examples))
     html = _HTML.replace("__GLYPH_DATA__", _json_for_script(payload))
     output_path = Path(output_path)
@@ -321,6 +324,7 @@ def build_interactive_concept_network(
     concept_prefix=None,
     image_examples=None,
     outcome_names=None,
+    regions=None,
 ):
     """Write a self-contained interactive HTML map of a Glyph concept space."""
     if view not in ("simple", "full"):
@@ -361,7 +365,7 @@ def build_interactive_concept_network(
             edges=edges, output_path=output_path, title=f"{modality} concept exploration",
             selection_note=f"{split} · no association testing performed" + (" · fewer than 3 studies; correlations not estimated" if not enough_samples else ""), view=view,
             wheel_label_limit=wheel_label_limit, image_examples=image_examples,
-            outcome_names=outcome_names)
+            outcome_names=outcome_names, regions=regions)
     if phewas_results.empty:
         raise ValueError("No saved association rows; pass None for exploration without association results")
 
@@ -474,6 +478,8 @@ def build_interactive_concept_network(
         "node_sizing": node_area_parameters(len(nodes),full_prevalence_area=math.pi*14**2,minimum_area=math.pi*.35**2),
         "associations": associations,
     }
+    from glyph.visualization.regions import pack_regions
+    payload["regions"] = pack_regions(regions, nodes)
     payload.update(image_payload(image_examples))
     html = _HTML.replace("__GLYPH_DATA__", _json_for_script(payload))
     output_path = Path(output_path)
@@ -550,16 +556,91 @@ dt{color:var(--muted)}dd{margin:0;text-align:right}.wheel{width:100%;height:auto
 #search:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #64748b;outline-offset:2px}
 @media(max-width:850px){#toolbar details>.outcomes{position:fixed;left:12px;right:12px;top:110px;width:auto;max-height:calc(52dvh - 130px)}#mapStatus{top:110px;left:14px;font-size:11px}#side{min-height:0}.simple-view #side{padding:20px}.outcomes{max-width:calc(100vw - 28px)}.simple-view .legend{max-width:calc(100% - 70px);font-size:10px}.simple-view #toolbar>details>summary{min-width:105px}.simple-view #toolbar>input{max-width:none;flex-basis:135px}.simple-view #toolbar>button{padding:8px}#zoomControls{right:12px;bottom:12px;flex-direction:column}#mapStatus{max-width:calc(100% - 28px)}.simple-view #app{grid-template-rows:minmax(320px,52dvh) minmax(0,1fr)}}
 .concept-images{margin:20px 0}.example-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.example-grid figure{margin:0;min-width:0}.example-grid img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px}.example-grid img.pixelated{image-rendering:pixelated}.example-grid figcaption{margin-top:6px;font-size:10px;overflow-wrap:anywhere;color:#475569}.example-grid figcaption span{display:block;margin-top:3px;color:#64748b}
+.concept-limit{align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px!important;margin-bottom:12px}.concept-limit select{font:inherit;padding:6px 10px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}
+/* Research-site presentation; the full diagnostics view keeps its existing layout. */
+.simple-view{--ink:#252525;--muted:#737373;--line:#e5e5e5;--paper:#fff;--ground:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.simple-view #app{grid-template-columns:minmax(0,1fr) 0px;height:100dvh}
+.simple-view #app.has-selection{grid-template-columns:minmax(0,1fr) 420px}
+.simple-view #side{min-width:0;padding:26px 24px;overflow-x:hidden;background:#fff;border-left:1px solid #ededed}
+.simple-view #app:not(.has-selection)>#side{display:none}
+.simple-view #app.has-selection #mapTitle{display:none}
+.simple-view #mapMeta{font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.simple-view #toolbar{top:18px;left:20px;right:20px;align-items:center;gap:8px}
+.simple-view button,.simple-view input,.simple-view summary{font-family:inherit;font-size:14px;color:#525252;border-color:#dfdfdf;box-shadow:none}
+.simple-view button:hover,.simple-view summary:hover{background:#f5f5f5;border-color:#bdbdbd}
+.simple-view #toolbar>input{margin-left:auto;max-width:260px;min-width:120px;flex:1}
+.simple-view #toolbar>details>summary{min-width:0;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.simple-view #toolbar #tourButton{width:36px;padding:9px 0}
+.simple-view .outcomes{border-color:#e1e1e1;box-shadow:0 12px 36px #32323212;max-height:min(510px,calc(100dvh - 120px));padding:14px;width:320px;overflow:auto}
+.simple-view .outcomes label{font-size:14px;line-height:1.5;padding:7px 3px;gap:9px}
+.simple-view .outcomes input[type=checkbox],.simple-view .outcomes input[type=radio]{accent-color:#525252}
+.simple-view #displaySettings .outcomes b{color:#404040;font-size:13px;margin:14px 0 6px}
+.simple-view #displaySettings .outcomes>b:first-child{margin-top:0}
+.simple-view #mapStatus{top:auto;left:20px;bottom:15px;font-size:12px;color:#737373;max-width:calc(100% - 100px)}
+.simple-view #mapHint{position:absolute;top:76px;left:22px;font-size:14px;color:#737373;pointer-events:none}
+#mapHint{display:none}.simple-view #mapHint{display:block}
+.simple-view #app.has-selection #mapHint{display:none}
+.simple-view .legend{bottom:46px;left:20px;border:0;background:#fffffff2;box-shadow:none;padding:0;font-size:12px;line-height:1.65;max-width:min(540px,calc(100% - 90px))}
+.simple-view .legend b{font-weight:550;font-size:13px;color:#525252}
+.simple-view .legend .dot{width:8px;height:8px}
+.simple-view #zoomControls{bottom:18px;right:20px;gap:5px}
+.simple-view #zoomControls button{width:34px;height:34px;border-radius:8px;font-size:20px}
+.simple-view #detail h2{font-size:20px;letter-spacing:-.4px;margin:24px 0 10px;color:#292929}
+.simple-view #detail>h2:first-of-type{font-size:25px;line-height:1.35;overflow-wrap:anywhere}
+.simple-view #detail p{font-size:16px;line-height:1.65;color:#525252;overflow-wrap:anywhere}
+.simple-view #detail .meta{font-size:13px;line-height:1.65;color:#737373}
+.simple-view .detail-actions{margin-top:0;gap:8px}
+.simple-view .detail-actions button{font-size:12px;padding:7px 9px;background:transparent}
+.simple-view .wheel{display:block;width:100%;max-width:480px;height:auto;margin:12px auto 18px}
+.simple-view .wheel-help,.simple-view .association-details{margin:12px 0}
+.simple-view .wheel-help>summary,.simple-view .association-details>summary{font-size:13px;padding:8px 0;border:0;border-bottom:1px solid #ededed;border-radius:0;min-width:0;box-shadow:none;background:transparent;color:#737373}
+.simple-view .wheel-help>summary::after,.simple-view .association-details>summary::after{content:' +';float:right}
+.simple-view .wheel-help[open]>summary::after,.simple-view .association-details[open]>summary::after{content:' −'}
+.simple-view .wheel-help .meta{margin-top:9px}
+.simple-view .association-details>h2{display:none}
+.simple-view .assoc{font-size:13px;table-layout:fixed;width:100%}
+.simple-view .assoc th,.simple-view .assoc td{padding:9px 4px;border-color:#ebebeb;overflow-wrap:anywhere}
+.simple-view .assoc th:first-child{width:46%}
+.simple-view .assoc .outcome-link{font-size:13px;line-height:1.5;color:#404040}
+.simple-view .assoc .ci{font-size:11px}.simple-view .assoc .p-value{white-space:normal}
+.simple-view .assoc-note{font-size:12px!important;line-height:1.6!important}
+.simple-view .example-grid figcaption{font-size:12px}
+.simple-view .node{stroke:#333;stroke-opacity:.75;stroke-width:.9}.simple-view .node-group.is-selected .node{stroke:#171717;stroke-opacity:1;stroke-width:2.2}
+.simple-view #tip{background:#272727f5;font-family:inherit;font-size:13px;border-radius:9px;max-width:min(330px,calc(100vw - 16px))}
+.concept-region-group{pointer-events:none}
+.concept-region{fill:#737373;fill-opacity:.025;stroke:#858585;stroke-opacity:.65;stroke-width:1;stroke-dasharray:5 5;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.concept-region-label{fill:#606060;font-size:15px;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+@media(min-width:851px) and (max-width:1100px){.simple-view #app.has-selection{grid-template-columns:minmax(0,1fr) 350px}.simple-view #side{padding:22px 20px}.simple-view #toolbar>input{max-width:180px}}
+@media(max-width:850px){
+ .simple-view #app,.simple-view #app:not(.has-selection){grid-template-columns:1fr;grid-template-rows:1fr}
+ .simple-view #app.has-selection{grid-template-columns:1fr;grid-template-rows:44% minmax(0,1fr)}
+ .simple-view #side{padding:18px 20px;border-left:0;border-top:1px solid #ededed;overscroll-behavior:contain}
+ .simple-view #toolbar{top:12px;left:12px;right:12px;gap:6px;flex-wrap:nowrap}
+ .simple-view #toolbar>input{font-size:14px;min-width:60px;max-width:240px;flex:1;width:80px}
+ .simple-view #toolbar>button,.simple-view #toolbar>details>summary{font-size:13px;padding:8px}
+ .simple-view #toolbar>details>summary{max-width:140px;min-width:0}
+ .simple-view #toolbar #reset{font-size:0;padding:8px;width:32px;flex:none}
+ .simple-view #toolbar #reset::after{content:'↺';font-size:18px}
+ .simple-view #toolbar #tourButton{width:30px;flex:none}
+ .simple-view #toolbar details>.outcomes{position:fixed;top:61px;left:12px;right:12px;width:auto;max-height:calc(44dvh - 80px);min-height:80px}
+ .simple-view #mapHint{top:65px;left:14px;font-size:12px}
+ .simple-view #mapStatus{bottom:8px;left:12px;font-size:11px;max-width:calc(100% - 62px)}
+ .simple-view .legend{left:12px;bottom:30px;font-size:11px;max-width:calc(100% - 62px);max-height:70px;overflow:auto}
+ .simple-view #zoomControls{right:10px;bottom:10px;flex-direction:column}
+ .simple-view #detail>h2:first-of-type{font-size:23px}.simple-view #detail p{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){.simple-view *{transition:none!important}}
+
 </style></head><body><div id="app"><main id="stage">
 <div id="toolbar"><details id="outcomePicker"><summary id="outcomeSummary">Outcomes</summary><div class="outcomes"><div class="picker-actions"><button id="selectAllOutcomes" type="button">Select all</button><button id="clearOutcomes" type="button">Clear</button></div><input id="outcomeSearch" type="search" aria-label="Find an outcome" placeholder="Find an outcome"><div id="outcomeChoices"></div></div></details><details id="contextPicker"><summary id="contextSummary">Context: all</summary><div class="outcomes" id="contextChoices"></div></details><details id="facetPicker"><summary>Modalities / families</summary><div class="outcomes" id="facetChoices"></div></details><details id="colorSettings"><summary id="colorSummary">Color: outcomes</summary><div class="outcomes"><b>Node color</b><label><input type="radio" name="colorMode" value="outcome" checked><span>Outcome associations</span></label><label><input type="radio" name="colorMode" value="modality"><span>Modality</span></label><p class="meta">Outcome mode uses the selected significant associations. Modality mode shows where each data source lives.</p></div></details><details id="displaySettings"><summary id="settingsSummary">Both directions · extreme 10% · min 5</summary><div class="outcomes"><b>Association direction</b><label><input type="radio" name="associationDirection" value="risk"><span>Risk (OR &gt; 1)</span></label><label><input type="radio" name="associationDirection" value="protective"><span>Protective (OR &lt; 1)</span></label><label><input type="radio" name="associationDirection" value="both" checked><span>Both directions</span></label><label><input id="extremeOnly" type="checkbox" checked><span>Most extreme 10% per direction (minimum 5)</span></label><p class="meta">Risk uses the highest odds ratios; protective uses the lowest. Ranking is recalculated within each outcome and the currently visible context.</p></div></details><input id="search" type="search" aria-label="Search concepts" placeholder="Search concepts">
-<button id="reset">Reset view</button><button id="tourButton">Tour</button></div>
-<svg id="graph" role="group" aria-label="Interactive concept network"><g id="camera"><g id="edgeLayer"></g><g id="nodeLayer"></g></g></svg>
-<div id="mapStatus" role="status" aria-live="polite"></div><div id="emptyState" hidden><b>No matching concepts</b><p>Try another search or change the display options.</p></div><div class="legend" id="legend"></div><div id="zoomControls"><button id="zoomIn" aria-label="Zoom in">+</button><button id="zoomOut" aria-label="Zoom out">−</button></div>
+<button id="reset">Reset view</button><button id="tourButton" aria-label="Explorer help">?</button></div>
+<svg id="graph" role="group" aria-label="Interactive concept network"><g id="camera"><g id="regionLayer" style="display:none"></g><g id="edgeLayer"></g><g id="nodeLayer"></g></g></svg>
+<div id="mapHint">Select a concept to explore</div><div id="mapStatus" role="status" aria-live="polite"></div><div id="emptyState" hidden><b>No matching concepts</b><p>Try another search or show more concepts in Options.</p></div><div class="legend" id="legend"></div><div id="zoomControls"><button id="zoomIn" aria-label="Zoom in">+</button><button id="zoomOut" aria-label="Zoom out">−</button></div>
 <div id="tip" role="tooltip"></div></main><aside id="side"><h1 id="mapTitle">Glyph</h1><div class="meta" id="mapMeta"></div><details class="analysis-box" id="agenticAnalysis" hidden><summary>Agentic analysis</summary><div class="analysis-copy" id="agenticAnalysisContent"></div><div class="analysis-copy"><a id="analysisReportLink" target="_blank" rel="noopener" hidden>Open evidence report ↗</a></div></details><div class="side-tabs"><button id="detailTab" class="active">Concept detail</button><button id="rankingTab">Significant associations</button><button id="technicalTab">Technical details</button></div>
 <section id="detailPanel"><p id="intro">Select a concept to inspect its interpretation and association profile. Scroll to zoom and drag to pan.</p><div id="detail"></div></section><section id="rankingPanel" hidden><p class="rank-note" id="rankNote">Globally significant associations. Stars use within-modality Bonferroni p: * &lt;.05, ** &lt;.01, *** &lt;.001. Click an outcome header to sort by odds ratio.</p><div class="rank-wrap"><table class="rank-table" id="rankTable"></table></div></section><section id="technicalPanel" hidden><p class="tech-note" id="technicalNote"></p><div class="tech-controls"><label for="technicalSplit"><b>Evaluation split</b></label><select id="technicalSplit"><option value="train">Train</option><option value="val">Validation</option><option value="test" selected>Test</option></select></div><div id="technicalContent"></div></section></aside></div>
 <div id="tourShade" class="tour-shade" hidden></div><div id="tourCard" class="tour-card" hidden><div class="tour-kicker" id="tourKicker"></div><h2 id="tourTitle"></h2><p id="tourText"></p><div class="tour-actions"><button class="tour-skip" id="tourSkip">Skip</button><span class="tour-dots" id="tourDots"></span><button id="tourBack">Back</button><button id="tourNext">Next</button></div></div>
 <script>
-const DATA=__GLYPH_DATA__,NS='http://www.w3.org/2000/svg',S=1000,BASE_NODE_OPACITY=.7;
+const DATA=__GLYPH_DATA__,NS='http://www.w3.org/2000/svg',S=1000,BASE_NODE_OPACITY=1;
 const isSimple=DATA.view!=='full';document.body.classList.toggle('simple-view',isSimple);
 document.title=DATA.title;document.getElementById('mapTitle').textContent=DATA.title;
 const svg=document.getElementById('graph'),camera=document.getElementById('camera'),edgeLayer=document.getElementById('edgeLayer'),nodeLayer=document.getElementById('nodeLayer'),tip=document.getElementById('tip');
@@ -573,16 +654,27 @@ const formatP=p=>p==null?'—':p===0?'0 (reported)':p<.001?p.toExponential(2):p.
 const formatOR=v=>v==null?'—':v>=1000||v<.01?v.toExponential(2):v!==1&&Math.abs(v-1)<.005?v.toPrecision(6):v.toFixed(2);
 function moveTip(e){const r=e.target?.getBoundingClientRect?.();let x=e.clientX??(r?.right??20),y=e.clientY??(r?.top??20);if(e.type==='focusin'||e.type==='focus'){x=r?.right??20;y=r?.top??20}tip.style.opacity=1;tip.style.left=Math.max(8,Math.min(innerWidth-tip.offsetWidth-8,x+14))+'px';tip.style.top=Math.max(8,Math.min(innerHeight-tip.offsetHeight-8,y+14))+'px'}
 function associationTip(e,a){tip.innerHTML=`<b>${escapeHTML(outcomeName(a.outcome))}</b><div>${a.odds_ratio<1?'Lower':'Higher'} odds · ${a.significant?'Bonferroni-significant':'Not Bonferroni-significant'}</div><dl><dt>Odds ratio</dt><dd>${formatOR(a.odds_ratio)}</dd><dt>95% confidence interval</dt><dd>${a.ci_lower!=null&&a.ci_upper!=null?formatOR(a.ci_lower)+'–'+formatOR(a.ci_upper):'Not available'}</dd><dt>Raw p-value</dt><dd>${formatP(a.p_value)}</dd><dt>Bonferroni p-value</dt><dd>${formatP(a.corrected_p_value)}</dd>${a.count==null?'':`<dt>Reported support</dt><dd>${a.count.toLocaleString()}</dd>`}</dl>`;moveTip(e)}
-function renderEdges(){if(edgeLayer.childElementCount)return;const fragment=document.createDocumentFragment();DATA.edges.forEach(([a,b,w])=>{const x=document.createElementNS(NS,'line');x.classList.add('edge');x.dataset.a=a;x.dataset.b=b;x.setAttribute('x1',DATA.nodes[a].x*S);x.setAttribute('y1',DATA.nodes[a].y*S);x.setAttribute('x2',DATA.nodes[b].x*S);x.setAttribute('y2',DATA.nodes[b].y*S);x.setAttribute('stroke-width',.30*Math.abs(w));x.setAttribute('stroke-opacity',.14*Math.abs(w));fragment.appendChild(x)});edgeLayer.appendChild(fragment)}renderEdges();
+const regionLayer=document.getElementById('regionLayer');
+(DATA.regions||[]).forEach(region=>{
+ const group=document.createElementNS(NS,'g'),shape=document.createElementNS(NS,'polygon'),label=document.createElementNS(NS,'text'),title=document.createElementNS(NS,'title');
+ group.classList.add('concept-region-group');shape.classList.add('concept-region');
+ shape.setAttribute('points',region.points.map(p=>p.map(v=>v*S).join(',')).join(' '));
+ label.classList.add('concept-region-label');label.setAttribute('x',region.x*S);label.setAttribute('y',region.y*S);label.setAttribute('text-anchor','middle');label.textContent=region.label;
+ title.textContent='Suggested concept neighborhood · '+region.label;group.append(title,shape,label);regionLayer.appendChild(group);region.element=group;
+});
+let conceptLimit=isSimple?400:Infinity;
+const populousNodes=[...DATA.nodes].sort((a,b)=>(b.active??0)-(a.active??0)||a.i-b.i);
+let shownConcepts=new Set(populousNodes.slice(0,conceptLimit).map(n=>n.i));
+function renderEdges(){if(edgeLayer.childElementCount)return;const fragment=document.createDocumentFragment();DATA.edges.forEach(([a,b,w])=>{if(!shownConcepts.has(a)||!shownConcepts.has(b))return;const x=document.createElementNS(NS,'line');x.classList.add('edge');x.dataset.a=a;x.dataset.b=b;x.setAttribute('x1',DATA.nodes[a].x*S);x.setAttribute('y1',DATA.nodes[a].y*S);x.setAttribute('x2',DATA.nodes[b].x*S);x.setAttribute('y2',DATA.nodes[b].y*S);x.setAttribute('stroke-width',isSimple?.55:.30*Math.abs(w));x.setAttribute('stroke-opacity',isSimple?.16+.12*Math.abs(w):.14*Math.abs(w));if(isSimple)x.style.stroke='#737373';fragment.appendChild(x)});edgeLayer.appendChild(fragment)}renderEdges();
 let activeContext=null;
 const contextValues=n=>activeContext?n.contexts?.[activeContext]:null;
 const nodeRate=n=>contextValues(n)?.rate??n.rate,nodeActive=n=>contextValues(n)?.active??n.active;
 const contextPasses=n=>!activeContext||nodeActive(n)>=(DATA.context_min_activations??20);
 const NODE_SIZING=DATA.node_sizing;
-const radius=n=>Math.sqrt(Math.max(NODE_SIZING.minimum_area,NODE_SIZING.full_prevalence_area*Math.max(0,Math.min(100,nodeRate(n)))/100)/Math.PI);
-DATA.nodes.forEach(n=>{const g=document.createElementNS(NS,'g');g.classList.add('node-group');g.style.opacity=BASE_NODE_OPACITY;n.el=g;nodeLayer.appendChild(g);
+const radius=n=>(isSimple?1.35:1)*Math.sqrt(Math.max(NODE_SIZING.minimum_area,NODE_SIZING.full_prevalence_area*Math.max(0,Math.min(100,nodeRate(n)))/100)/Math.PI);
+DATA.nodes.forEach(n=>{const g=document.createElementNS(NS,'g');g.classList.add('node-group');g.style.opacity=BASE_NODE_OPACITY;n.el=g;if(shownConcepts.has(n.i))nodeLayer.appendChild(g);
  const h=document.createElementNS(NS,'circle');n.hit=h;h.classList.add('hit');h.setAttribute('cx',n.x*S);h.setAttribute('cy',n.y*S);h.setAttribute('r',Math.max(9,radius(n)+3));h.setAttribute('fill','transparent');h.setAttribute('tabindex','0');h.setAttribute('role','button');h.setAttribute('aria-label',n.name);h.dataset.node=n.i;h.onclick=e=>{e.stopPropagation();if(moved<4&&nodePassesFilter(n))show(n)};h.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(n)}};
- h.onmousemove=e=>showTip(e,n);h.onmouseleave=()=>tip.style.opacity=0;nodeLayer.appendChild(h)});
+ h.onmousemove=e=>showTip(e,n);h.onmouseleave=()=>tip.style.opacity=0;if(shownConcepts.has(n.i))nodeLayer.appendChild(h)});
 const selected=new Set(DATA.initial_outcome==null?[]:[DATA.initial_outcome]),choices=document.getElementById('outcomeChoices'),summary=document.getElementById('outcomeSummary');
 const DISEASE_PALETTE=['#14B8A6','#3B82F6','#8B5CF6','#EC4899','#6366F1','#06B6D4','#10B981','#A855F7','#0EA5E9'];
 const MODALITY_PALETTE=['#1E3A5F','#514B8A','#246B67','#475569','#075985','#374151'];
@@ -607,8 +699,8 @@ function wedge(cx,cy,r,a0,a1,fill){const p=t=>[cx+r*Math.cos(t),cy+r*Math.sin(t)
 function protectiveFill(outcome){if(protectivePatterns.has(outcome))return`url(#${protectivePatterns.get(outcome)})`;const id=`protective-${protectivePatterns.size}`,pattern=document.createElementNS(NS,'pattern'),base=document.createElementNS(NS,'rect'),stripe=document.createElementNS(NS,'path'),hue=outcomeColor(outcome);pattern.id=id;pattern.setAttribute('patternUnits','userSpaceOnUse');pattern.setAttribute('width',7);pattern.setAttribute('height',7);base.setAttribute('width',7);base.setAttribute('height',7);base.setAttribute('fill',hue);base.setAttribute('fill-opacity','.18');stripe.setAttribute('d','M-2,7 L7,-2 M2,9 L9,2');stripe.setAttribute('stroke',hue);stripe.setAttribute('stroke-width','2');pattern.append(base,stripe);patternDefs.appendChild(pattern);protectivePatterns.set(outcome,id);return`url(#${id})`}
 const associationFill=a=>a.odds_ratio<1?protectiveFill(a.outcome):outcomeColor(a.outcome);
 function ringWedge(cx,cy,r0,r1,a0,a1,fill){const p=(r,t)=>[cx+r*Math.cos(t),cy+r*Math.sin(t)],a=p(r1,a0),b=p(r1,a1),c=p(r0,a1),d=p(r0,a0),x=document.createElementNS(NS,'path');x.setAttribute('d',`M${a}A${r1},${r1} 0 ${a1-a0>Math.PI?1:0} 1 ${b}L${c}A${r0},${r0} 0 ${a1-a0>Math.PI?1:0} 0 ${d}Z`);x.setAttribute('fill',fill);return x}
-function drawNode(n){const hits=selectedHits(n),cx=n.x*S,cy=n.y*S,r=radius(n);n.el.replaceChildren();n.hit.setAttribute('r',Math.max(9,r+3));if(colorMode==='modality')n.el.appendChild(circle(cx,cy,r,modalityColor(n.modality)));else if(!hits.length)n.el.appendChild(circle(cx,cy,r,'#E2E8F0'));else if(hits.length===1)n.el.appendChild(circle(cx,cy,r,associationFill(hits[0])));else hits.forEach((a,i)=>n.el.appendChild(wedge(cx,cy,r,-Math.PI/2+i*2*Math.PI/hits.length,-Math.PI/2+(i+1)*2*Math.PI/hits.length,associationFill(a))));n.outline=circle(cx,cy,r,'none','node');n.el.appendChild(n.outline)}
-function updateLegend(){const legend=document.getElementById('legend'),contextLabel=activeContext?` · ${escapeHTML(activeContext)} concepts (≥${DATA.context_min_activations??20} active)`:DATA.contexts?.length?' · all contexts':'',directionLabel=associationDirection==='risk'?'risk OR > 1':associationDirection==='protective'?'protective OR < 1':'risk + protective',modeLabel=extremeOnly?`extreme 10% ${directionLabel} (min 5)`:directionLabel;if(colorMode==='modality'){legend.innerHTML='<b>Color: modality'+contextLabel+'</b><br>Node area: activation prevalence<br>'+(DATA.modalities||[]).map(m=>`<span class="dot" style="background:${modalityColor(m)}"></span>${escapeHTML(m)}`).join('');return}const shown=[...selected].slice(0,selected.size<=12?12:8),extra=Math.max(0,selected.size-shown.length);legend.innerHTML=`<b>Color: outcome · ${modeLabel}${contextLabel}</b><span class="direction-key risk"></span>▲ predictive <span class="direction-key protective"></span>▼ protective<br>`+shown.map(o=>`<span class="dot" style="background:${outcomeColor(o)}"></span>${escapeHTML(outcomeName(o))}`).join('')+(extra?` &nbsp;+${extra} more`:'')+'<span class="dot" style="background:#E2E8F0"></span>none<br>Node area: activation prevalence'}
+function drawNode(n){if(!shownConcepts.has(n.i))return;const hits=selectedHits(n),cx=n.x*S,cy=n.y*S,r=radius(n);n.el.replaceChildren();n.hit.setAttribute('r',Math.max(9,r+3));if(colorMode==='modality')n.el.appendChild(circle(cx,cy,r,modalityColor(n.modality)));else if(!hits.length)n.el.appendChild(circle(cx,cy,r,isSimple?'#bfc3c7':'#E2E8F0'));else if(hits.length===1)n.el.appendChild(circle(cx,cy,r,associationFill(hits[0])));else hits.forEach((a,i)=>n.el.appendChild(wedge(cx,cy,r,-Math.PI/2+i*2*Math.PI/hits.length,-Math.PI/2+(i+1)*2*Math.PI/hits.length,associationFill(a))));n.outline=circle(cx,cy,r,'none','node');n.el.appendChild(n.outline)}
+function updateLegend(){const legend=document.getElementById('legend'),contextLabel=activeContext?` · ${escapeHTML(activeContext)} concepts (≥${DATA.context_min_activations??20} active)`:DATA.contexts?.length?' · all contexts':'',directionLabel=associationDirection==='risk'?'risk OR > 1':associationDirection==='protective'?'protective OR < 1':'risk + protective',modeLabel=extremeOnly?`extreme 10% ${directionLabel} (min 5)`:directionLabel;if(colorMode==='modality'){legend.innerHTML='<b>Color: modality'+contextLabel+'</b><br>Node area: activation prevalence<br>'+(DATA.modalities||[]).map(m=>`<span class="dot" style="background:${modalityColor(m)}"></span>${escapeHTML(m)}`).join('');return}const shown=[...selected].slice(0,selected.size<=12?12:8),extra=Math.max(0,selected.size-shown.length);legend.innerHTML=`<b>Color: outcome · ${modeLabel}${contextLabel}</b><span class="direction-key risk"></span>▲ predictive <span class="direction-key protective"></span>▼ protective<br>`+shown.map(o=>`<span class="dot" style="background:${outcomeColor(o)}"></span>${escapeHTML(outcomeName(o))}`).join('')+(extra?` &nbsp;+${extra} more`:'')+'<span class="dot" style="background:#bfc3c7"></span>none<br>Node area: activation prevalence'}
 function recolor(){DATA.nodes.forEach(drawNode);updateLegend()}
 function showTip(e,n){const hits=selectedHits(n),hitText=hits.length?hits.map(a=>`<span style="color:${outcomeColor(a.outcome)}">${a.odds_ratio<1?'▼':'▲'}</span> ${a.odds_ratio<1?'protective':'predictive'} · ${escapeHTML(outcomeName(a.outcome))} · OR ${a.odds_ratio.toFixed(2)}`).join('<br>'):'No significant selected outcomes',contextText=activeContext?`${escapeHTML(activeContext)} activation ${nodeRate(n)}% (${nodeActive(n).toLocaleString()})`:`activation ${n.rate}%`;tip.innerHTML=`<b>${escapeHTML(n.name)}</b><br>${escapeHTML(n.modality)} · ${escapeHTML(n.embedding_family)}<br>${escapeHTML(n.interpretation||'No interpretation')}<br><span style="opacity:.78">${contextText}<br>${hitText}</span>`;tip.style.opacity=1;let x=e.clientX+14,y=e.clientY+14;if(x+tip.offsetWidth>innerWidth-8)x=e.clientX-tip.offsetWidth-14;if(y+tip.offsetHeight>innerHeight-8)y=e.clientY-tip.offsetHeight-14;tip.style.left=x+'px';tip.style.top=y+'px'}
 function wheel(n){
@@ -637,12 +729,13 @@ function conceptImages(n){
 }
 function renderSelected(){
  const detail=document.getElementById('detail'),intro=document.getElementById('intro');
+ document.getElementById('app').classList.toggle('has-selection', !!selectedNode);
  if(!selectedNode){detail.replaceChildren();intro.style.display='';return}
  const n=selectedNode,items=(A[n.i]||[]).slice().sort((a,b)=>Math.abs(Math.log(b.odds_ratio))-Math.abs(Math.log(a.odds_ratio)));
  const rows=items.map(a=>`<tr><td><button class="outcome-link" data-outcome="${escapeHTML(a.outcome)}">${escapeHTML(outcomeName(a.outcome))}</button></td><td>${a.odds_ratio<1?'▼':'▲'} ${formatOR(a.odds_ratio)}${a.ci_lower!=null&&a.ci_upper!=null?`<span class="ci">${formatOR(a.ci_lower)}–${formatOR(a.ci_upper)}</span>`:''}</td><td class="p-value">${formatP(a.corrected_p_value)}</td></tr>`).join('');
  const activation=activeContext?`${nodeActive(n).toLocaleString()} active in ${escapeHTML(activeContext)} · ${nodeRate(n)}%`:`${n.active.toLocaleString()} active samples · ${n.rate}%`;
  const family=n.embedding_family&&n.embedding_family!=='default'?` · ${escapeHTML(n.embedding_family)}`:'';
- intro.style.display='none';detail.innerHTML=`<div class="detail-actions"><button id="clearSelection">← Back to map</button><button id="exportConcept">Export CSV</button></div><h2>${escapeHTML(n.name)}</h2><div class="meta">${escapeHTML(n.modality)}${family} · ${activation}${n.accuracy==null?'':` · interpretation accuracy ${n.accuracy}%`}</div><p>${escapeHTML(n.interpretation||'No interpretation available.')}</p>${conceptImages(n)}<h2>Outcome wheel</h2><div class="meta">All ${items.length} outcomes · OR = 1 is the middle dashed circle. Spokes show departures from 1: inward below 1, outward above 1. Reciprocal odds ratios use equal distances. ${items.length<=(DATA.wheel_label_limit??20)?'Spokes show outcome, direction and OR. ':''}Hover or focus a spoke for statistics. Faded spokes are not Bonferroni-significant.</div>${wheel(n)}<h2>Outcome associations</h2><p class="assoc-note">Sorted by effect magnitude. Intervals, where available, are 95% CIs. Click an outcome to highlight it on the map.</p><table class="assoc"><thead><tr><th>Outcome</th><th>OR / 95% CI</th><th>Bonferroni p</th></tr></thead><tbody>${rows}</tbody></table>`;
+ intro.style.display='none';detail.innerHTML=`<div class="detail-actions"><button id="clearSelection">← Back to map</button><button id="exportConcept">Export CSV</button></div><h2>${escapeHTML(n.name)}</h2><div class="meta">${escapeHTML(n.modality)}${family} · ${activation}${n.accuracy==null?'':` · interpretation accuracy ${n.accuracy}%`}</div><p>${escapeHTML(n.interpretation||'No interpretation available.')}</p>${conceptImages(n)}<h2>Outcome wheel</h2><details class="wheel-help"><summary>How to read the wheel</summary><div class="meta">All ${items.length} outcomes · OR = 1 is the middle dashed circle. Spokes show departures from 1: inward below 1, outward above 1. Reciprocal odds ratios use equal distances. ${items.length<=(DATA.wheel_label_limit??20)?'Spokes show outcome, direction and OR. ':''}Hover or focus a spoke for statistics. Faded spokes are not Bonferroni-significant.</div></details>${wheel(n)}<details class="association-details" ${isSimple?'':'open'}><summary>Outcome associations (${items.length})</summary><h2>Outcome associations</h2><p class="assoc-note">Sorted by effect magnitude. Intervals, where available, are 95% CIs. Click an outcome to highlight it on the map.</p><table class="assoc"><thead><tr><th>Outcome</th><th>OR / 95% CI</th><th>Bonferroni p</th></tr></thead><tbody>${rows}</tbody></table></details>`;
  if(!DATA.outcomes.length){
  const wheelHeader=[...detail.querySelectorAll('h2')].find(x=>x.textContent==='Outcome wheel');
  while(wheelHeader?.nextSibling)wheelHeader.nextSibling.remove();
@@ -689,6 +782,24 @@ if(!isSimple||(DATA.modalities||[]).length>1)addFacet('Modalities',DATA.modaliti
 if(!isSimple||(DATA.embedding_families||[]).length>1)addFacet('Embedding families',DATA.embedding_families||[],selectedFamilies);
 if(isSimple){
  const options=document.querySelector('#displaySettings>.outcomes'),colors=document.getElementById('colorSettings'),facets=document.getElementById('facetPicker');
+ const limitLabel=document.createElement('label'),limitText=document.createElement('span'),limitSelect=document.createElement('select');
+ limitText.textContent='Concepts shown';limitSelect.id='conceptLimit';limitSelect.setAttribute('aria-label','Maximum concepts shown');
+ for(const limit of [100,200,400,800,1600]){
+  if(limit>DATA.nodes.length&&limit!==400)continue;
+  const option=document.createElement('option');option.value=String(limit);option.textContent=String(limit);option.selected=limit===400;limitSelect.appendChild(option);
+ }
+ const allOption=document.createElement('option');allOption.value='all';allOption.textContent=`All (${DATA.nodes.length.toLocaleString()})`;limitSelect.appendChild(allOption);
+ limitLabel.className='concept-limit';limitLabel.append(limitText,limitSelect);options.prepend(limitLabel);
+ limitSelect.onchange=()=>{
+  conceptLimit=limitSelect.value==='all'?Infinity:Number(limitSelect.value);
+  shownConcepts=new Set(populousNodes.slice(0,conceptLimit).map(n=>n.i));
+  const fragment=document.createDocumentFragment();
+  DATA.nodes.forEach(n=>{if(shownConcepts.has(n.i)){fragment.appendChild(n.el);fragment.appendChild(n.hit)}});
+  nodeLayer.replaceChildren(fragment);edgeLayer.replaceChildren();
+  if(document.getElementById('showEdges').checked)renderEdges();
+  recolor();applyFilters();
+ };
+
  if((DATA.modalities||[]).length>1)options.append(...colors.querySelector('.outcomes').children);
  colors.hidden=true;facets.hidden=true;
  if(facetChoices.children.length)options.appendChild(facetChoices);
@@ -696,24 +807,44 @@ if(isSimple){
  const row=document.createElement('label'),checkbox=document.createElement('input'),text=document.createElement('span');
  checkbox.type='checkbox';checkbox.id='showEdges';checkbox.checked=true;text.textContent='Show connections (up to 8 per concept)';row.append(checkbox,text);options.appendChild(row);edgeLayer.style.display='';checkbox.onchange=()=>{if(checkbox.checked)renderEdges();edgeLayer.style.display=checkbox.checked?'':'none';updateEdgeVisibility()};
  document.querySelector('#displaySettings').setAttribute('aria-label','Display options');
+ if(DATA.regions?.length){
+  const label=document.createElement('label'),box=document.createElement('input'),text=document.createElement('span');
+  box.type='checkbox';box.id='showRegions';box.checked=false;text.textContent='Show suggested regions';label.append(box,text);options.appendChild(label);
+  box.onchange=()=>regionLayer.style.display=box.checked?'':'none';
+ }
+
  const filter=document.createElement('label');filter.innerHTML='<input type="checkbox" id="onlySignificant"><span>Only concepts with selected associations</span>';options.appendChild(filter);filter.querySelector('input').onchange=e=>{onlySignificant=e.target.checked;applyFilters()};
- const reset=document.createElement('button');reset.id='filterReset';reset.textContent='Reset filters';reset.onclick=()=>{onlySignificant=false;document.getElementById('onlySignificant').checked=false;document.getElementById('search').value='';associationDirection='both';extremeOnly=false;document.querySelector('input[name="associationDirection"][value="both"]').checked=true;document.getElementById('extremeOnly').checked=false;selectedModalities.clear();(DATA.modalities||[]).forEach(v=>selectedModalities.add(v));selectedFamilies.clear();(DATA.embedding_families||[]).forEach(v=>selectedFamilies.add(v));facetChoices.querySelectorAll('input').forEach(box=>box.checked=true);activeContext=null;const allContext=contextChoices.querySelector('input');if(allContext)allContext.checked=true;selected.clear();selected.add(DATA.initial_outcome);syncOutcomeBoxes();updateAssociationMode()};options.appendChild(reset);
+ const reset=document.createElement('button');reset.id='filterReset';reset.textContent='Reset filters';reset.onclick=()=>{onlySignificant=false;document.getElementById('onlySignificant').checked=false;document.getElementById('search').value='';associationDirection='both';extremeOnly=false;document.querySelector('input[name="associationDirection"][value="both"]').checked=true;document.getElementById('extremeOnly').checked=false;selectedModalities.clear();(DATA.modalities||[]).forEach(v=>selectedModalities.add(v));selectedFamilies.clear();(DATA.embedding_families||[]).forEach(v=>selectedFamilies.add(v));facetChoices.querySelectorAll('input').forEach(box=>box.checked=true);activeContext=null;const allContext=contextChoices.querySelector('input');if(allContext)allContext.checked=true;selected.clear();if(DATA.initial_outcome!=null)selected.add(DATA.initial_outcome);syncOutcomeBoxes();updateAssociationMode()};options.appendChild(reset);
 }
 
-function nodePassesFilter(n,q=document.getElementById('search').value.trim().toLowerCase()){return contextPasses(n)&&selectedModalities.has(n.modality)&&selectedFamilies.has(n.embedding_family)&&(!onlySignificant||selectedHits(n).length>0)&&(!q||n.name.toLowerCase().includes(q)||String(n.feature_idx).includes(q)||(n.interpretation||'').toLowerCase().includes(q))}
+function nodePassesFilter(n,q=document.getElementById('search').value.trim().toLowerCase()){return shownConcepts.has(n.i)&&contextPasses(n)&&selectedModalities.has(n.modality)&&selectedFamilies.has(n.embedding_family)&&(!onlySignificant||selectedHits(n).length>0)&&(!q||n.name.toLowerCase().includes(q)||String(n.feature_idx).includes(q)||(n.interpretation||'').toLowerCase().includes(q))}
 function updateEdgeVisibility(){edgeLayer.querySelectorAll('.edge').forEach(edge=>{const a=DATA.nodes[Number(edge.dataset.a)],b=DATA.nodes[Number(edge.dataset.b)];edge.style.display=nodePassesFilter(a)&&nodePassesFilter(b)?'':'none'})}
 function applyFilters(){
  const q=document.getElementById('search').value.trim().toLowerCase();let matches=0,hits=0;
  if(selectedNode&&!nodePassesFilter(selectedNode,q))selectedNode=null;
- DATA.nodes.forEach(n=>{const facetVisible=contextPasses(n)&&selectedModalities.has(n.modality)&&selectedFamilies.has(n.embedding_family)&&(!onlySignificant||selectedHits(n).length>0),visible=nodePassesFilter(n,q);if(visible){matches++;if(selectedHits(n).length)hits++}n.el.style.display=facetVisible?'':'none';n.hit.style.display=facetVisible?'':'none';n.hit.setAttribute('tabindex',visible?'0':'-1');n.el.classList.toggle('is-selected',n===selectedNode);n.el.style.opacity=visible?(selectedNode?(n===selectedNode?1:.2):BASE_NODE_OPACITY):.06});
- document.getElementById('mapStatus').textContent=`${matches.toLocaleString()} of ${DATA.nodes.length.toLocaleString()} concepts · ${hits.toLocaleString()} with selected associations`;
+ DATA.nodes.forEach(n=>{const facetVisible=shownConcepts.has(n.i)&&contextPasses(n)&&selectedModalities.has(n.modality)&&selectedFamilies.has(n.embedding_family)&&(!onlySignificant||selectedHits(n).length>0),visible=nodePassesFilter(n,q);if(visible){matches++;if(selectedHits(n).length)hits++}n.el.style.display=facetVisible?'':'none';n.hit.style.display=facetVisible?'':'none';n.hit.setAttribute('tabindex',visible?'0':'-1');n.el.classList.toggle('is-selected',n===selectedNode);n.el.style.opacity=visible?(selectedNode?(n===selectedNode?1:.55):BASE_NODE_OPACITY):.06});
+ document.getElementById('mapStatus').textContent=`${matches.toLocaleString()} of ${DATA.nodes.length.toLocaleString()} concepts${conceptLimit<DATA.nodes.length?' · most activating '+conceptLimit:''} · ${hits.toLocaleString()} with selected associations`;
+ (DATA.regions||[]).forEach(region=>{region.element.style.display=region.members.some(i=>nodePassesFilter(DATA.nodes[i],q))?'':'none'});
  document.getElementById('emptyState').hidden=matches>0;updateEdgeVisibility();renderSelected();
 }
 document.getElementById('search').oninput=applyFilters;
 let scale=1,tx=0,ty=0,drag=null,moved=0;
-const apply=()=>camera.setAttribute('transform',`translate(${tx},${ty}) scale(${scale})`);
+// Keep every camera path inside the original fitted presentation.
+const ATLAS_MIN_ZOOM=1,ATLAS_MAX_ZOOM=4;
+function constrainCameraPose(view){
+ const k=Math.max(ATLAS_MIN_ZOOM,Math.min(ATLAS_MAX_ZOOM,Number.isFinite(view.scale)?view.scale:1));
+ const lower=S*(1-k),clampPan=value=>Math.max(lower,Math.min(0,Number.isFinite(value)?value:0));
+ return {scale:k,tx:clampPan(view.tx),ty:clampPan(view.ty)};
+}
+const apply=()=>{
+ ({scale,tx,ty}=constrainCameraPose({scale,tx,ty}));
+ camera.setAttribute('transform',`translate(${tx},${ty}) scale(${scale})`);
+ document.getElementById('zoomIn').disabled=scale>=ATLAS_MAX_ZOOM;
+ document.getElementById('zoomOut').disabled=scale<=ATLAS_MIN_ZOOM;
+};
+apply();
 function svgPoint(e){const point=svg.createSVGPoint();point.x=e.clientX;point.y=e.clientY;return point.matrixTransform(svg.getScreenCTM().inverse())}
-function zoomAt(point,factor){const next=Math.max(.5,Math.min(15,scale*factor));tx=point.x-(point.x-tx)*next/scale;ty=point.y-(point.y-ty)*next/scale;scale=next;apply()}
+function zoomAt(point,factor){const next=Math.max(ATLAS_MIN_ZOOM,Math.min(ATLAS_MAX_ZOOM,scale*factor));tx=point.x-(point.x-tx)*next/scale;ty=point.y-(point.y-ty)*next/scale;scale=next;apply()}
 svg.addEventListener('wheel',e=>{e.preventDefault();zoomAt(svgPoint(e),e.deltaY<0?1.15:1/1.15)},{passive:false});
 svg.style.touchAction='none';svg.onpointerdown=e=>{if(e.button!==0)return;const point=svgPoint(e);drag={x:point.x,y:point.y,tx,ty,clientX:e.clientX,clientY:e.clientY};moved=0};
 window.addEventListener('pointerup',e=>{if(svg.hasPointerCapture(e.pointerId))svg.releasePointerCapture(e.pointerId);drag=null});

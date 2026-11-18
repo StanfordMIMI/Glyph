@@ -1,6 +1,18 @@
 # Changelog
 
-## Unreleased
+## 0.2.1
+
+- Adopt the research explorer's cleaner map/details layout, stronger nodes,
+  and bounded 1–4× zoom/pan. Keep filters in Options and make dense tables expandable.
+- Render the 400 most populous concepts initially, with an option to show more,
+  and keep correlation edges thin and visible.
+- Support agent/user-supplied region annotations, hidden by default.
+- Refresh all three public demo explorers and their Pages versions without
+  changing saved layouts, associations or images.
+- Include the paper/website links and captioned overview in the package README.
+
+- Build a PyPI-specific README image URL while preserving the relative figure
+  link that works when browsing the GitHub repository.
 
 - Add optional readable outcome display names to explorers and reports while
   preserving original filter/export identifiers. Refresh the skin-lesion demo

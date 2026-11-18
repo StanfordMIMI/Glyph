@@ -1,5 +1,22 @@
 # Release status
 
+## 0.2.1 — 18 November 2026
+
+The standalone explorer now uses the research viewer’s map/details layout,
+stronger node styling and bounded 1–4× zoom/pan. The simple view initially renders
+the 400 concepts with the most activating samples; Options can show more or all.
+Optional agent/user-supplied semantic region annotations are hidden by default.
+All three curated demo explorers were refreshed from their exact existing payloads,
+without refitting models or changing coordinates, estimates or images. Their Pages
+versions retain deferred thumbnail loading.
+
+The installed wheel passed 54 focused browser/API/skill checks. All three demos
+also passed standalone and Pages browser checks, including mobile layouts and
+thumbnail loading. Both distributions passed metadata validation and content
+scans. The built README includes the arXiv paper, research website and video;
+the wheel includes both Claude Code and Codex skills. Authenticated LLM calls
+and large-model extraction were not rerun for this presentation update.
+
 ## 0.2.0 — 4 November 2026
 
 The current package has passed a fresh installed-wheel check against the API

@@ -48,6 +48,28 @@ def _download_weights(entry, cache_dir):
     )
 
 
+def _apply_interpretation_overrides(interpretations, modality):
+    """Apply curated descriptions without reusing scores for the original wording."""
+    import pandas as pd
+    path = ASSET_DIR / "interpretation_overrides.csv"
+    if not path.exists():
+        return interpretations
+    overrides = pd.read_csv(path)
+    result = interpretations.copy()
+    for row in overrides[overrides.inputs == modality].itertuples():
+        mask = result.feature_name.astype(str).eq(str(row.feature_name))
+        if not mask.any():
+            continue
+        if "interpretation_source" not in result:
+            result["interpretation_source"] = "AutoInterp candidate"
+        result.loc[mask, "extracted_interpretation"] = row.extracted_interpretation
+        result.loc[mask, "interpretation_source"] = "Revised interpretation"
+        for column in result:
+            if column.endswith("accuracy"):
+                result.loc[mask, column] = float("nan")
+    return result
+
+
 class PretrainedSAE:
     """A pretrained SAE plus the interpretations of its concepts."""
 
@@ -142,6 +164,7 @@ def load_pretrained(name, cache_dir=None):
 
     interpretations = pd.read_csv(_asset(INTERPRETATIONS_ASSET, entry, cache_dir))
     interpretations = interpretations[interpretations["inputs"] == entry.modality]
+    interpretations = _apply_interpretation_overrides(interpretations, entry.modality)
 
     decoder = {key: weights[key].float() for key in ("W_dec", "b_dec")} if "W_dec" in weights and "b_dec" in weights else None
     return PretrainedSAE(entry, W_enc, b_enc, norm, interpretations, decoder=decoder)

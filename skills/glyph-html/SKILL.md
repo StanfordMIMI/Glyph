@@ -61,3 +61,21 @@ report is a separate agent harness. See `docs/html_explorer.md`.
 Keep OR = 1 at the fixed middle radius. Exactly 1 draws no effect; lower ORs
 extend inward and higher ORs outward, using symmetric log spacing so reciprocal
 effects have equal lengths. Label the actual inner/outer OR bounds.
+
+## Research-style map and optional regions
+
+Keep the simple view as the default. It opens on a full-width map with minimal
+controls; selection opens the details sidebar. Keep explanatory text and the
+complete association table expandable. Do not add a permanent toolbar for each
+setting.
+
+If the user wants named map regions, inspect concept interpretations and image
+examples before proposing labels. Supply `regions=[{"label": "Suggested pattern",
+"concepts": ["feature_3", "feature_12"]}]` to `glyph.visualize()`, or use
+`concept_id` values with the atlas builder. Multiple modalities accept a mapping
+from modality to region lists. Save the definitions as JSON. These are tentative
+semantic annotations of overlapping neighborhoods, not statistical partitions.
+Do not fabricate clinical labels when the saved run lacks enough interpretation
+evidence. The renderer draws envelopes without moving concepts or changing tests.
+
+Region overlays are off by default. Enable “Show suggested regions” in Options to display supplied annotations.

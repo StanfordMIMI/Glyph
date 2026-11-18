@@ -17,7 +17,7 @@ def browser():
         pytest.skip('Set GLYPH_BROWSER_TESTS=1 and install Playwright Chromium')
     playwright = pytest.importorskip('playwright.sync_api')
     with playwright.sync_playwright() as p:
-        instance = p.chromium.launch(headless=True, args=['--no-sandbox'])
+        instance = p.chromium.launch(executable_path=os.environ.get('GLYPH_CHROMIUM_EXECUTABLE'), headless=True, args=['--no-sandbox'])
         yield instance
         instance.close()
 
@@ -116,7 +116,7 @@ def test_search_selection_options_and_empty_state(browser, tmp_path):
         page.locator('#search').fill('does not exist')
         assert page.locator('#emptyState').is_visible()
         assert '0 of 2' in page.locator('#mapStatus').inner_text()
-        assert page.locator('#intro').is_visible()
+        assert page.locator('#side').is_hidden()
         assert page.locator('.hit[tabindex="0"]').count() == 0
         page.locator('#displaySettings>summary').click()
         page.locator('#filterReset').click()
@@ -130,7 +130,7 @@ def test_search_selection_options_and_empty_state(browser, tmp_path):
         page.locator('#displaySettings>summary').click()
         page.locator('.hit[data-node="0"]').click()
         page.locator('#clearSelection').click()
-        assert page.locator('#intro').is_visible()
+        assert page.locator('#side').is_hidden()
         assert not errors
     finally:
         page.close()
@@ -154,7 +154,7 @@ def test_zoom_anchor_pan_and_mobile(browser, tmp_path):
         assert page.evaluate('moved') > 4
         page.locator('#reset').click()
         assert page.evaluate('scale') == 1
-        assert page.locator('#intro').is_visible()
+        assert page.locator('#side').is_hidden()
         page.set_viewport_size(dict(width=390,height=844))
         page.locator('.hit[data-node="0"]').click()
         assert page.locator('.wheel-spoke').count() == 150
@@ -235,7 +235,7 @@ def test_interactive_node_area_is_proportional_to_prevalence(browser,tmp_path):
         return {ratio:high**2/low**2,zero:radius({rate:0}),settings:NODE_SIZING};
     }""")
     assert measured['ratio']==pytest.approx(4.)
-    assert measured['zero']==pytest.approx(.35)
+    assert measured['zero']==pytest.approx(.35*1.35)
     assert measured['settings']['full_prevalence_area']==pytest.approx(np.pi*14**2)
     page.close()
 
@@ -256,8 +256,8 @@ def test_full_network_renderer_has_sizing_metadata_and_visible_connections(brows
 def test_correlation_lines_are_thin_and_strength_scaled(browser,tmp_path):
     page=browser.new_page();page.goto(viewer(tmp_path).as_uri())
     line=page.locator('.edge').first
-    assert float(line.get_attribute('stroke-width'))==pytest.approx(.30*.8)
-    assert float(line.get_attribute('stroke-opacity'))==pytest.approx(.14*.8)
+    assert float(line.get_attribute('stroke-width'))==pytest.approx(.55)
+    assert float(line.get_attribute('stroke-opacity'))==pytest.approx(.16+.12*.8)
     page.close()
 
 
@@ -277,4 +277,46 @@ def test_sidebar_shows_real_embedded_examples_and_keeps_unlabelled_exploration(b
         assert 'activation 2.00' in page.locator('.concept-images').inner_text()
         assert page.locator('.wheel-spoke').count()==0
         assert not errors and not remote
+    finally:page.close()
+
+
+def test_simple_view_limits_rendered_concepts_by_activation_count(browser,tmp_path):
+    concepts=pd.DataFrame([dict(concept_id=str(i),name=f"feature_{i}",x=.1+(i%25)*.03,
+        y=.1+(i//25)*.03,modality="image",active=i,rate=i/6) for i in range(600)])
+    output=build_interactive_concept_atlas(concepts,
+        pd.DataFrame(columns=["concept_id","outcome","odds_ratio"]),tmp_path/"large.html",
+        edges=[(str(i),str(i+1),.8) for i in range(599)],
+        regions=[dict(label="Suggested neighborhood",concepts=["599"])])
+    page,errors,_=open_page(browser,output)
+    try:
+        assert page.locator(".hit").count()==400
+        assert page.locator('.hit[data-node="0"]').count()==0
+        assert page.locator('.hit[data-node="599"]').count()==1
+        assert page.locator("#regionLayer").is_hidden()
+        page.locator("#displaySettings>summary").click()
+        page.select_option("#conceptLimit","all")
+        assert page.locator(".hit").count()==600
+        assert page.locator(".edge").count()==599
+        page.locator("#showRegions").check()
+        assert page.locator("#regionLayer").is_visible()
+        page.select_option("#conceptLimit","400")
+        assert page.locator(".hit").count()==400
+        assert not errors
+    finally:page.close()
+
+
+def test_camera_bounds_match_research_atlas(browser,tmp_path):
+    page,errors,_=open_page(browser,viewer(tmp_path))
+    try:
+        assert page.locator("#zoomOut").is_disabled()
+        page.evaluate("zoomAt({x:500,y:500},1e6)")
+        assert page.evaluate("scale")==4
+        assert page.locator("#zoomIn").is_disabled()
+        page.evaluate("tx=1e9;ty=-1e9;apply()")
+        assert page.evaluate("({tx,ty})")==dict(tx=0,ty=-3000)
+        page.locator("#reset").click()
+        assert page.evaluate("({scale,tx,ty})")==dict(scale=1,tx=0,ty=0)
+        page.mouse.move(300,300);page.mouse.down();page.mouse.move(600,500,steps=4);page.mouse.up()
+        assert page.evaluate("tx===0&&ty===0")
+        assert not errors
     finally:page.close()

@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "glyph-discovery"
-version = "0.2.0"
+version = "0.2.1"
 description = "Domain-agnostic hypothesis generation using sparse autoencoders"
-readme = "README.md"
+dynamic = ["readme"]
 requires-python = ">=3.9"
 license = "MIT"
 license-files = ["LICENSE"]

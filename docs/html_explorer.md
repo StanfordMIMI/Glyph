@@ -9,7 +9,9 @@ modality/dictionary has its own map. Independently fitted dictionaries with a sh
 layout can use `build_interactive_concept_atlas`. A narrative report belongs to an
 agent report harness, rather than the HTML renderer or a required core API step.
 
-The default simple view keeps the map, outcome selector, searchable concepts,
+The default simple view uses the research site’s neutral typography and a full-width
+map. Selecting a concept opens a detail sidebar; closing it restores the map.
+Wheel help and the full association table expand on request. It keeps the outcome selector, searchable concepts,
 Options and concept details. Options cover association direction, extreme effects,
 modalities/families, node color, connections and an optional restriction to concepts
 with selected associations. Display filters change what is shown; they do not
@@ -160,3 +162,36 @@ Set `visualization.outcome_names` to map metadata keys to display labels, for ex
 wheel and association details; filtering and CSV exports retain the original keys.
 Report metadata accepts the same `outcome_names` mapping and optional
 `outcome_labels` for readable binary class names in image captions.
+
+## Suggested region overlays
+
+Agents or users can provide region labels after inspecting interpretations and
+examples. These are optional presentation annotations, not validated clusters,
+disease boundaries or new association results. The renderer never invents names.
+
+```python
+glyph.visualize(regions=[
+    {"label": "Suggested neighborhood", "concepts": ["feature_3", "feature_12"]},
+])
+```
+
+For multiple modalities, pass a mapping from input-column name to region lists.
+The atlas builder also accepts `regions`, using exact `concept_id` values. Unique
+display names are accepted too. Boundaries are convex envelopes around supplied
+concepts with a small display margin; they do not move nodes or affect statistics.
+They can overlap and can be disabled in Options. An agent should save its region
+definitions, explain the evidence behind the names and mark uncertain labels as
+suggested. Unsupported semantic names should be omitted.
+
+Region overlays are off by default. Enable “Show suggested regions” in Options to display supplied annotations.
+
+Camera bounds match the research atlas: zoom stays between 1× and 4×.
+Panning is clamped to the original map extent at every zoom level, including
+wheel, buttons, dragging and programmatic changes. Reset restores the full map.
+
+The simple view initially renders up to 400 concepts, selected by activating
+sample count (ties use the existing node order). Options → Concepts shown can
+raise the limit or display all concepts. Only edges between displayed concepts
+are mounted. Original coordinates and the complete saved statistics are retained.
+The complete data remain in the standalone HTML; the limit reduces rendered SVG
+work, rather than the download size.

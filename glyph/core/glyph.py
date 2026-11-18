@@ -965,15 +965,15 @@ class Glyph:
         print("PIPELINE COMPLETE")
         print("="*80 + "\n")
 
-    def visualize(self, outcome=None, split=None, output_path=None, *, serve=False, open_browser=True, port=0, image_examples=None):
+    def visualize(self, outcome=None, split=None, output_path=None, *, serve=False, open_browser=True, port=0, image_examples=None, regions=None):
         """
         Build interactive concept maps of SAE features.
 
         Nodes are alive SAE features; edges connect highly correlated features.
         The generated, self-contained HTML supports pan, zoom, search, selectable
         outcomes, concept interpretations, and per-concept association wheels.
-        Region overlays are intentionally omitted because they require a separate
-        semantic naming step.
+        Optional region labels are supplied by the user or agent, not inferred
+        as validated findings by the renderer.
 
         Can be called after fit() for exploration without association results.
 
@@ -982,6 +982,8 @@ class Glyph:
             split: optional partition; defaults to train for fitted runs or the measured cohort
             image_examples: number of high-activation image examples per concept;
                 defaults to visualization.image_examples (2). Set 0 to omit images.
+            regions: optional suggested neighborhoods (label and concept IDs),
+                or a mapping from modality name to neighborhood lists.
             output_path: optional HTML path. Only valid when visualizing one
                 modality/top-k pair. By default, files are written under output_dir.
 
@@ -1066,6 +1068,7 @@ class Glyph:
                         concept_prefix=concept_prefix,
                         image_examples=gallery,
                         outcome_names=viz_cfg.get("outcome_names", {}),
+                        regions=regions.get(modality, []) if isinstance(regions, dict) else regions,
                     ))
 
                 if viz_cfg.get('static_jpg', False) and self.phewas_results is not None:
