@@ -5,7 +5,7 @@
 # Glyph
 
 [![PyPI version](https://img.shields.io/pypi/v/glyph-discovery?logo=pypi&logoColor=white)](https://pypi.org/project/glyph-discovery/)
-[![Total PyPI downloads](https://img.shields.io/pepy/dt/glyph-discovery?label=PyPI%20downloads&logo=pypi&logoColor=white)](https://pepy.tech/projects/glyph-discovery)
+[![Total PyPI downloads](https://img.shields.io/pepy/dt/glyph-discovery?label=PyPI%20downloads&logo=pypi&logoColor=white)](https://pypi.org/project/glyph-discovery/)
 [![Total Hugging Face model downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fhuggingface.co%2Fapi%2Fmodels%2FRobbieHolland%2FGlyph-research%3Fexpand%255B%255D%3DdownloadsAllTime&query=%24.downloadsAllTime&label=HF+model+downloads&color=yellow&logo=huggingface&logoColor=black)](https://huggingface.co/RobbieHolland/Glyph-research)
 [![Total Hugging Face dataset downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fhuggingface.co%2Fapi%2Fdatasets%2FRobbieHolland%2FGlyph-research%3Fexpand%3DdownloadsAllTime&query=%24.downloadsAllTime&label=HF+data+downloads&color=yellow&logo=huggingface&logoColor=black)](https://huggingface.co/datasets/RobbieHolland/Glyph-research)
 
@@ -14,7 +14,7 @@ concepts, searches for associations with outcomes, and summarizes its findings
 in interactive visualizations and concise reports. Use it on your own data,
 or apply the pretrained concept dictionaries released with the paper.
 
-[Read the paper](https://arxiv.org/abs/2611.08922) · [Research website](https://stanfordmimi.github.io/Glyph-research/)
+[PyPI package](https://pypi.org/project/glyph-discovery/) · [Read the paper](https://arxiv.org/abs/2611.08922) · [Research website](https://stanfordmimi.github.io/Glyph-research/)
 
 <p align="center">
   <a href="https://stanfordmimi.github.io/Glyph/video/">
