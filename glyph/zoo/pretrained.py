@@ -1,5 +1,6 @@
 """Load pretrained SAEs and apply them to embeddings."""
 
+import json
 import math
 import warnings
 from pathlib import Path
@@ -37,12 +38,51 @@ def _asset(filename, entry, cache_dir):
     )
 
 
-def _download_weights(entry, cache_dir):
+def _load_configuration(entry, cache_dir):
+    """Read and validate the published dictionary architecture before its weights."""
+    from huggingface_hub import hf_hub_download
+
+    path = hf_hub_download(
+        repo_id=entry.repo,
+        filename="config.json",
+        revision=entry.revision,
+        local_dir=cache_dir,
+    )
+    with open(path) as f:
+        config = json.load(f)
+    if not isinstance(config, dict) or config.get("format_version") != 1 or config.get("model_type") != "glyph_sparse_autoencoder":
+        raise ValueError("Unsupported pretrained Glyph configuration")
+    try:
+        model = config["models"][entry.name]
+    except (KeyError, TypeError) as exc:
+        raise ValueError(f"Published configuration does not contain {entry.name}") from exc
+    if not isinstance(model, dict):
+        raise ValueError(f"{entry.name}: published model configuration must be an object")
+    expected = {
+        "modality": entry.modality,
+        "encoder": entry.encoder,
+        "input_dim": entry.input_dim,
+        "n_concepts": entry.n_concepts,
+        "top_k": entry.top_k,
+        "activation": "relu_topk",
+        "weights_file": entry.weights,
+    }
+    for key, value in expected.items():
+        if model.get(key) != value:
+            raise ValueError(f"{entry.name}: published {key} does not match its registered concept dictionary")
+    for key, filename in [("normalization_file", NORMALIZATION_ASSET),
+                          ("interpretations_file", INTERPRETATIONS_ASSET)]:
+        if config.get(key) != filename:
+            raise ValueError(f"{entry.name}: unsupported {key} in published configuration")
+    return config, model
+
+
+def _download_weights(entry, cache_dir, filename=None):
     from huggingface_hub import hf_hub_download
 
     return hf_hub_download(
         repo_id=entry.repo,
-        filename=entry.weights,
+        filename=filename or entry.weights,
         revision=entry.revision,
         local_dir=cache_dir,
     )
@@ -151,18 +191,22 @@ def load_pretrained(name, cache_dir=None):
     entry = resolve(name)
     cache_dir = cache_dir or Path.home() / ".cache" / "glyph" / "zoo"
 
+    config, model = _load_configuration(entry, cache_dir)
     weights = torch.load(
-        _download_weights(entry, cache_dir), map_location="cpu", weights_only=True
+        _download_weights(entry, cache_dir, filename=model["weights_file"]),
+        map_location="cpu", weights_only=True,
     )
     # The trained encoder is z = x @ W_enc + b_enc; b_dec is decoder-only and
     # must not be subtracted here.
     W_enc = weights["W_enc"].float()
     b_enc = weights["b_enc"].float()
+    if tuple(W_enc.shape) != (model["input_dim"], model["n_concepts"]) or tuple(b_enc.shape) != (model["n_concepts"],):
+        raise ValueError(f"{entry.name}: checkpoint dimensions do not match its published configuration")
 
-    with open(_asset(NORMALIZATION_ASSET, entry, cache_dir)) as f:
+    with open(_asset(config["normalization_file"], entry, cache_dir)) as f:
         norm = yaml.safe_load(f)[entry.modality]
 
-    interpretations = pd.read_csv(_asset(INTERPRETATIONS_ASSET, entry, cache_dir))
+    interpretations = pd.read_csv(_asset(config["interpretations_file"], entry, cache_dir))
     interpretations = interpretations[interpretations["inputs"] == entry.modality]
     interpretations = _apply_interpretation_overrides(interpretations, entry.modality)
 

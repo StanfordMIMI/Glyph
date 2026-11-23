@@ -8,8 +8,8 @@ rather than redefining the concepts of an existing one.
 
 from dataclasses import dataclass
 
-HF_REPO = "RobbieHolland/HypothesisExtractor"
-HF_REVISION = "23c5da2d6d415e88255912da398e83035d507069"
+HF_REPO = "RobbieHolland/Glyph-research"
+HF_REVISION = "eb0882dadd2128e1a0c64d28d012bb7b5eff28dd"
 
 
 @dataclass(frozen=True)

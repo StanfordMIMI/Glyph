@@ -1,0 +1,38 @@
+{
+  "repo": "RobbieHolland/Glyph-research",
+  "revision": "eb0882dadd2128e1a0c64d28d012bb7b5eff28dd",
+  "models": [
+    {
+      "name": "ct-merlin@1",
+      "dimensions": [
+        2048,
+        8192
+      ],
+      "active_limit": 40,
+      "checkpoint_sha256_unchanged": true,
+      "concept_activations_exact": true
+    },
+    {
+      "name": "findings-qwen3@1",
+      "dimensions": [
+        4096,
+        8192
+      ],
+      "active_limit": 40,
+      "checkpoint_sha256_unchanged": true,
+      "concept_activations_exact": true
+    },
+    {
+      "name": "labs-loinc@1",
+      "dimensions": [
+        768,
+        8192
+      ],
+      "active_limit": 40,
+      "checkpoint_sha256_unchanged": true,
+      "concept_activations_exact": true
+    }
+  ],
+  "inputs": "Synthetic embeddings only; no cohort data",
+  "force_download": false
+}

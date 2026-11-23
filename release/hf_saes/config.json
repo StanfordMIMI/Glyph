@@ -1,0 +1,38 @@
+{
+  "model_type": "glyph_sparse_autoencoder",
+  "format_version": 1,
+  "normalization_file": "normalization.yaml",
+  "interpretations_file": "interpretations.csv",
+  "models": {
+    "ct-merlin@1": {
+      "modality": "image",
+      "encoder": "merlin-vlm: Merlin(ImageEmbedding=True)",
+      "input_dim": 2048,
+      "n_concepts": 8192,
+      "top_k": 40,
+      "activation": "relu_topk",
+      "weights_file": "sae_image.ckpt",
+      "weights_sha256": "cfe7ae774b288a84a58aea7e45393f706d50d29bd4ca3e8ad4bcf894a394b5ca"
+    },
+    "findings-qwen3@1": {
+      "modality": "findings",
+      "encoder": "Qwen/Qwen3-Embedding-8B (last-token pooled)",
+      "input_dim": 4096,
+      "n_concepts": 8192,
+      "top_k": 40,
+      "activation": "relu_topk",
+      "weights_file": "sae_findings.ckpt",
+      "weights_sha256": "9904aafd7ae79ed255e07d043d6ca123cb9c97c5623f5b64b9c0402dc7368a48"
+    },
+    "labs-loinc@1": {
+      "modality": "labs",
+      "encoder": "glyph labs encoder (LOINC-coded quarterly panels)",
+      "input_dim": 768,
+      "n_concepts": 8192,
+      "top_k": 40,
+      "activation": "relu_topk",
+      "weights_file": "sae_labs.ckpt",
+      "weights_sha256": "cb0c1f78fc76797135b633877ca3e681ee9ff59a9e6a3cd0594b38a99a2d28d4"
+    }
+  }
+}

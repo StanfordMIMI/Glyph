@@ -1,5 +1,21 @@
 # Release status
 
+## 0.2.3 — 23 November 2026
+
+Pretrained SAE loading now reads and validates `config.json` from the canonical
+`RobbieHolland/Glyph-research` model repository, pinned to revision
+`eb0882dadd2128e1a0c64d28d012bb7b5eff28dd`. The configuration selects the
+checkpoint and reference assets and checks its architecture against the named
+dictionary. These normal configuration requests are recognized by Hugging
+Face's model-download counter; previous checkpoint-only downloads were not.
+The badge continues to use the Hub's reported total, not an estimated count.
+
+All three checkpoint SHA-256 hashes match the original release. Actual image,
+report and lab dictionary loads produced exactly the same concept activations
+as the original checkpoints on synthetic inputs. The installed 0.2.3 wheel
+passed 17 configuration and reader API checks, and both distributions passed
+`twine check`. No research cohort was used.
+
 ## 0.2.1 — 18 November 2026
 
 The standalone explorer now uses the research viewer’s map/details layout,

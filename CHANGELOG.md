@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.3
+
+- Load and validate the published SAE configuration from the current
+  `RobbieHolland/Glyph-research` repository before fetching weights. This also
+  enables Hugging Face's standard model-download statistics for future loads.
+- Preserve the original SAE checkpoint contents, concept indices, encoder recipes
+  and normalization. Previously untracked downloads cannot be inferred from the
+  Hub counter.
+
 ## 0.2.2
 
 - Fix the PyPI header image using a PNG of the original SVG, hosted in the

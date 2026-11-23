@@ -5,7 +5,7 @@ A toolkit for discovering interpretable features and generating scientific hypot
 from multimodal data using Sparse Autoencoders and statistical analysis.
 """
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 __all__ = ["Glyph"]
 
