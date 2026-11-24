@@ -112,7 +112,7 @@ class AutoInterp:
             return f"[No text available for sample {sample_id}]"
         if '/' in text and '\n' not in text and len(text) < 500:
             try:
-                return Path(text).read_text().strip()
+                return Path(text).read_text(encoding='utf-8').strip()
             except (FileNotFoundError, PermissionError, OSError):
                 pass
         return text.strip()

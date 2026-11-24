@@ -70,7 +70,7 @@ class Qwen3Encoder(BatchEncoder):
     def embed_batch(self, data_list):
         texts = []
         for path in data_list:
-            text = Path(path).read_text()
+            text = Path(path).read_text(encoding="utf-8")
             match = re.search(r"findings\s*:?\s*(.*?)(?=\bimpression\b|$)", text, re.I | re.S)
             texts.append((match.group(1).strip() if match else text.strip()) + self.tokenizer.eos_token)
         batch = self.tokenizer(texts, padding=True, truncation=True, max_length=8192,

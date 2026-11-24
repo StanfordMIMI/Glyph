@@ -188,7 +188,7 @@ class LabsEncoder(BatchEncoder):
         self.model = LabsEmbedder(self.metadata, folder / "labs_encoder.ckpt", pad_to=self.pad_to).eval().to(device)
 
     def embed_batch(self, data_list):
-        samples = [json.loads(Path(p).read_text()) if isinstance(p, (str, Path)) else p for p in data_list]
+        samples = [json.loads(Path(p).read_text(encoding="utf-8")) if isinstance(p, (str, Path)) else p for p in data_list]
         if any(not sample for sample in samples):
             raise ValueError("A study with no eligible labs cannot be encoded as a normal lab observation")
         retained = set(self.metadata.loc[self.metadata.retained, "lab_id"])
