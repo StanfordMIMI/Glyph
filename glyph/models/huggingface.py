@@ -58,7 +58,7 @@ class HFEmbeddingModel(EmbeddingAdapter):
                 if self.read_text_files:
                     if not isinstance(value, (str, Path)):
                         raise ValueError('Text-file inputs must be paths')
-                    texts.append(Path(value).read_text())
+                    texts.append(Path(value).read_text(encoding="utf-8"))
                 else:
                     if not isinstance(value, str):
                         raise ValueError('Text inputs must be strings')

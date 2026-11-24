@@ -263,3 +263,32 @@ def test_real_dinov3_readme_workflow_on_public_digits(tmp_path):
     obj.fit();obj.hypothesis_search()
     paths=obj.visualize(outcome='is_digit_one',split='test')
     assert Path(paths[0]).is_file()
+
+
+def test_text_file_inputs_are_read_as_utf8_on_every_platform(tmp_path, monkeypatch):
+    from glyph.extraction.encoders import Qwen3Encoder
+    report = 'FINDINGS: 3.2 \u00d7 2.1 cm nodule, \u2265 5 mm, Dr \u00d0or\u00f0. IMPRESSION: none'
+    path = tmp_path / 'report.txt'
+    path.write_bytes(report.encode('utf-8'))
+    # Simulate a platform whose locale encoding is not UTF-8 (e.g. Windows cp1252).
+    original = Path.read_text
+    monkeypatch.setattr(Path, 'read_text',
+                        lambda self, encoding=None, errors=None: original(self, encoding or 'cp1252', errors))
+    seen = []
+    model = HFEmbeddingModel.__new__(HFEmbeddingModel)
+    model.input_type, model.read_text_files, model.max_length = 'text', True, None
+    model.processor = lambda texts, **options: seen.extend(texts)
+    model._prepare([str(path)])
+    assert seen == [report]
+    encoder = Qwen3Encoder.__new__(Qwen3Encoder)
+    class Tokenizer:
+        eos_token = '<eos>'
+
+        def __call__(self, texts, **options):
+            seen.extend(texts)
+            raise StopIteration
+
+    encoder.tokenizer = Tokenizer()
+    with pytest.raises(StopIteration):
+        encoder.embed_batch([str(path)])
+    assert seen[-1] == '3.2 \u00d7 2.1 cm nodule, \u2265 5 mm, Dr \u00d0or\u00f0.<eos>'
